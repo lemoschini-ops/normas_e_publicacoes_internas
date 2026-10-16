@@ -1,0 +1,19 @@
+﻿{
+    "executadoEm":  "2026-10-16T11:50:27",
+    "fontes":  [
+                   {
+                       "arquivo":  "normas.json",
+                       "antes":  484,
+                       "depois":  484,
+                       "status":  "ok",
+                       "erro":  ""
+                   },
+                   {
+                       "arquivo":  "publicacoes_sei.json",
+                       "antes":  975,
+                       "depois":  975,
+                       "status":  "ok",
+                       "erro":  ""
+                   }
+               ]
+}

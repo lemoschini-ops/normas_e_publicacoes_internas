@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atos Normativos da UFSCar — Pesquisa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Identidade alinhada ao guia de design do painel OpenAlex-UFSCar (ProPlan): azul-marinho, cinza claro, destaque amarelo, Open Sans */
+:root{
+  --navy:#244578;--blue:#0f4a85;--blue-2:#1b7fc4;--yellow:#f2b705;
+  --bg:#fafafa;--surface:#fff;--surface-2:#f1f4f9;--text:#4d4d4d;--heading:#1d3557;--muted:#5d6877;
+  --border:#e3e8ef;--nav-bg:#e6e6e6;--nav-text:#33475b;--accent:#0f4a85;--accent-soft:#e2ecf8;--accent-text:#fff;
+  --shadow:0 1px 2px rgba(16,42,84,.06),0 8px 24px rgba(16,42,84,.07);--radius:18px;
+  --bar:#0f4a85;--hl:#ffe58a;--warn:#b45309;--ok:#14633b;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1424;--surface:#131e34;--surface-2:#182543;--text:#cfd8e6;--heading:#eaf0fb;--muted:#93a1bb;
+  --border:#26365a;--nav-bg:#101a2e;--nav-text:#cfd8e6;--accent:#6db3f2;--accent-soft:#1d3a66;--accent-text:#0c1424;--shadow:none;
+  --bar:#6db3f2;--warn:#f0a04b;--ok:#4cc38a;}}
+:root[data-theme="dark"]{
+  --bg:#0c1424;--surface:#131e34;--surface-2:#182543;--text:#cfd8e6;--heading:#eaf0fb;--muted:#93a1bb;
+  --border:#26365a;--nav-bg:#101a2e;--nav-text:#cfd8e6;--accent:#6db3f2;--accent-soft:#1d3a66;--accent-text:#0c1424;--shadow:none;
+  --bar:#6db3f2;--warn:#f0a04b;--ok:#4cc38a;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 "Open Sans",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+[hidden]{display:none!important}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+input,select{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.45rem .65rem;min-width:0;width:100%}
+input[type=checkbox],input[type=radio]{width:auto}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.muted,.note{color:var(--muted);font-size:.8rem}
+.note{margin:.5rem 0 0}
+
+/* menu de painéis */
+.navbar{background:var(--nav-bg);display:flex;align-items:stretch;padding:0 clamp(.5rem,3vw,2.4rem);position:sticky;top:0;z-index:30;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.nav-btn{background:none;border:0;border-radius:0;border-bottom:4px solid transparent;padding:.85rem 1.1rem .7rem;color:var(--nav-text);font-weight:600;text-transform:uppercase;font-size:.86rem;letter-spacing:.02em;white-space:nowrap}
+.nav-btn:hover{background:rgba(36,69,120,.08)}
+.nav-btn.on{border-bottom-color:var(--yellow);color:var(--heading);background:rgba(255,255,255,.55)}
+:root[data-theme="dark"] .nav-btn.on{background:rgba(255,255,255,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nav-btn.on{background:rgba(255,255,255,.06)}}
+.nav-tools{margin-left:auto;display:flex;align-items:center}
+.nav-tools button{background:none;border:0;color:var(--nav-text);font-size:1.05rem;padding:.45rem .6rem;border-radius:8px;width:auto}
+.nav-tools button:hover{background:rgba(36,69,120,.12)}
+@media (max-width:760px){.navbar{flex-wrap:wrap}.nav-btn{flex:1;white-space:normal;text-align:center}}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(1rem,3vw,2rem)}
+main{max-width:1320px;margin:0 auto;padding:0 clamp(1rem,3vw,2rem) 2rem;display:grid;gap:1.1rem}
+
+/* banner */
+.hero{margin-top:1.4rem;border-radius:var(--radius);overflow:hidden;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;
+  padding:clamp(1.4rem,3vw,2.4rem);color:#fff;position:relative;background:linear-gradient(115deg,#0b2a5b 0%,#244578 45%,#1b7fc4 100%)}
+.hero::after{content:"";position:absolute;right:-8%;top:-40%;width:46%;height:190%;background:rgba(255,255,255,.07);transform:skewX(-22deg);pointer-events:none}
+.hero-text{max-width:66ch;position:relative;z-index:1}
+.hero h1{font-size:clamp(1.6rem,3.6vw,2.5rem);line-height:1.15;margin:.6rem 0;font-weight:700;letter-spacing:-.02em}
+.hero p{margin:0;opacity:.92}
+.hero a{color:#fff}
+.tag-hero{display:inline-block;background:var(--yellow);color:#33270a;font-weight:700;font-size:.78rem;padding:.2rem .8rem;border-radius:999px}
+.hero-stat{position:relative;z-index:1;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(4px);border-radius:16px;padding:1rem 1.6rem;text-align:center;min-width:210px}
+.hero-stat b{display:block;font-size:2.6rem;line-height:1.1;font-weight:800}
+.hero-stat span{font-size:.85rem;opacity:.9}
+
+/* títulos de seção e acesso rápido */
+.sec-title{font-size:1.25rem;color:var(--heading);font-weight:700;margin:.8rem 0 0;padding-left:.8rem;border-left:6px solid var(--yellow);line-height:1.2}
+.quick{display:flex;flex-wrap:wrap;gap:.7rem}
+.quick button{background:var(--blue);color:#fff;border:0;border-radius:22px;padding:.6rem 1.1rem;font-weight:600;box-shadow:0 4px 10px rgba(15,74,133,.28);transition:transform .12s,box-shadow .12s,background .12s;width:auto}
+.quick button:hover{transform:translateY(-2px);background:#0c3d70;box-shadow:0 8px 16px rgba(15,74,133,.32)}
+:root[data-theme="dark"] .quick button{background:#1d4f8c}
+
+/* cartões e filtros */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.2rem;box-shadow:var(--shadow);min-width:0}
+.card h2{margin:0 0 .6rem;font-size:1.05rem;color:var(--heading);font-weight:700}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.7rem;align-items:end}
+label{display:flex;flex-direction:column;font-size:.76rem;color:var(--muted);gap:.2rem;font-weight:600;margin:0}
+label input[type=checkbox]{margin-right:.4rem}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+.row label{flex-direction:row;align-items:center;font-weight:400;font-size:.85rem}
+button.btn,.filters button,.kwbox button,.pg button{background:var(--surface);border:2px solid var(--blue);color:var(--blue);border-radius:999px;padding:.4rem 1rem;font-weight:600;width:auto}
+button.btn:hover,.filters button:hover,.kwbox button:hover,.pg button:hover{background:var(--blue);color:#fff}
+:root[data-theme="dark"] .filters button,:root[data-theme="dark"] .kwbox button,:root[data-theme="dark"] .pg button{color:var(--accent);border-color:var(--accent)}
+:root[data-theme="dark"] .filters button:hover,:root[data-theme="dark"] .kwbox button:hover,:root[data-theme="dark"] .pg button:hover{background:var(--accent);color:var(--accent-text)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .filters button,:root:not([data-theme="light"]) .kwbox button,:root:not([data-theme="light"]) .pg button{color:var(--accent);border-color:var(--accent)}}
+button.primary,.filters button.primary,.kwbox button.primary{background:var(--blue);color:#fff}
+button:disabled{opacity:.35;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.7rem}
+.chip{display:inline-flex;gap:.5rem;align-items:center;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:.25rem .8rem;font-size:.85rem;cursor:pointer}
+.chip:after{content:"✕";font-size:.7rem}
+.chip.kw{background:var(--blue);color:#fff}
+.kwbox{margin-top:.9rem;padding:.8rem 1rem;border:1px dashed var(--border);border-radius:14px;background:var(--surface-2)}
+.kwrow{display:grid;grid-template-columns:minmax(220px,2fr) minmax(160px,1fr) minmax(160px,1fr) auto;gap:.7rem}
+@media (max-width:800px){.kwrow{grid-template-columns:1fr}}
+.sug{margin-top:.6rem;display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}
+.sg{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:.05rem .65rem;font-size:.8rem;cursor:pointer}
+.sg:hover{border-color:var(--accent)}.sg i{color:var(--muted);font-style:normal;font-size:.72rem}
+
+/* indicadores */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:1rem}
+.kpi{background:var(--surface);border:1px solid var(--border);border-top:5px solid var(--blue);border-radius:var(--radius);padding:1rem 1.1rem;box-shadow:var(--shadow)}
+.kpi:nth-child(4n+2){border-top-color:var(--yellow)}.kpi:nth-child(4n+3){border-top-color:var(--blue-2)}
+.kpi b{display:block;font-size:2.1rem;font-weight:800;letter-spacing:-.02em;color:var(--heading);line-height:1.15;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.kpi span{color:var(--muted);font-size:.85rem}
+
+/* gráficos */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,540px),1fr));gap:1.1rem}
+.bars{display:grid;gap:.3rem}
+.bar{display:grid;grid-template-columns:minmax(110px,38%) 1fr 40px;gap:.5rem;align-items:center;cursor:pointer;font-size:.84rem;border-radius:8px;padding:.1rem .3rem}
+.bar:hover{background:var(--accent-soft)}
+.bar.on{background:rgba(242,183,5,.22);font-weight:700}
+.bar .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .tr{background:var(--surface-2);border-radius:4px;height:14px;overflow:hidden}
+.bar .tr i{display:block;height:100%;background:var(--bar);border-radius:4px}
+.bar.on .tr i{background:var(--yellow)}
+.bar .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--heading);font-weight:700}
+.tl{display:flex;align-items:flex-end;gap:2px;height:150px}
+.tl div{flex:1;min-width:6px;background:var(--bar);border-radius:3px 3px 0 0;cursor:pointer}
+.tl div.cur,.tl div.on{background:var(--yellow)}
+.tl div:hover{filter:brightness(1.2)}
+.tlx{display:flex;justify-content:space-between;color:var(--muted);font-size:.72rem;margin-top:.2rem}
+.bars .note{margin-top:.5rem}
+
+/* tabelas */
+.tablewrap{overflow:auto;max-height:620px;border:1px solid var(--border);border-radius:14px}
+table{border-collapse:collapse;width:100%}
+th,td{text-align:left;padding:.55rem .75rem;border-bottom:1px solid var(--border);vertical-align:top;font-size:.9rem}
+th{position:sticky;top:0;background:var(--navy);color:#fff;cursor:pointer;white-space:nowrap;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;z-index:1}
+th.s:after{content:" ▲"}th.s.d:after{content:" ▼"}
+tbody tr:nth-child(even){background:var(--surface-2)}
+tbody tr:hover td{background:var(--accent-soft)}
+table.heat th{cursor:default}
+table.heat td.hc{text-align:center;cursor:pointer;min-width:42px;padding:.35rem;font-variant-numeric:tabular-nums}
+table.heat td.hc:hover{outline:2px solid var(--yellow)}
+.tag{display:inline-block;font-size:.72rem;padding:.02rem .6rem;border-radius:999px;background:var(--border);color:var(--heading);font-weight:600;margin:1px 2px 1px 0;white-space:nowrap}
+.tag.t{background:#d9f2e4;color:#14633b}
+:root[data-theme="dark"] .tag.t{background:#14402c;color:#9be0bd}
+.tag.u{background:var(--accent-soft);color:var(--accent)}
+.age-old{color:var(--warn);font-weight:700}
+mark{background:var(--hl);color:#000;border-radius:3px;padding:0 1px}
+.star{font-size:1.1rem;color:var(--muted);background:none!important;border:0!important;padding:0!important;width:auto}
+.star.on{color:var(--yellow)}
+.pg{display:flex;gap:1rem;align-items:center;justify-content:center;margin-top:.9rem;color:var(--muted)}
+.empty{padding:1.5rem;text-align:center;color:var(--muted)}
+
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:2rem 1rem;background:var(--surface);border-top:1px solid var(--border);margin-top:2rem}
+@media print{.navbar,.quick,.filters,.kwbox,.pg,.nav-tools,.sec-title.noprint{display:none!important}
+  body{background:#fff;color:#000}.card,.kpi{box-shadow:none;break-inside:avoid}.hero{color:#000;background:none;border:1px solid #ccc}.hero a{color:#000}}
+</style>
+</head>
+<body>
+<nav class="navbar" role="tablist">
+  <button id="tabBtnNormas" class="nav-btn on" role="tab">Atos normativos vigentes</button>
+  <button id="tabBtnSei" class="nav-btn" role="tab">Publicações no SEI</button>
+  <div class="nav-tools"><button id="tema" title="Alternar tema claro/escuro" aria-label="Alternar tema claro/escuro">◐</button><button id="imprimir" title="Imprimir" aria-label="Imprimir">🖨</button></div>
+</nav>
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-text">
+      <span class="tag-hero" id="heroTag">UFSCar · Pesquisa e Inovação</span>
+      <h1 id="heroH1">Atos normativos vigentes — acompanhamento de pesquisa</h1>
+      <p id="fonte"></p>
+    </div>
+    <div class="hero-stat"><b id="heroNum">—</b><span id="heroLbl">atos na seleção</span></div>
+  </section>
+</div>
+
+<main id="tabNormas">
+  <h2 class="sec-title noprint">Acesso rápido</h2>
+  <div class="quick" id="quickN">
+    <button data-a="pq">Pesquisa e Inovação</button><button data-a="todos">Todos os eixos</button><button data-a="rec">Últimos 2 anos</button>
+    <button data-a="old">Mais de 10 anos</button><button data-a="etica">Ética e integridade</button><button data-a="inov">Inovação e PI</button>
+  </div>
+  <section class="card">
+    <h2>Filtros</h2>
+    <div class="filters">
+      <div><label for="q">Busca (unidade, tipo, número, ano, ementa)</label><input id="q" type="search" placeholder="ex.: ética, biossegurança, inovação…"></div>
+      <div><label for="fEixo">Eixo temático</label><select id="fEixo"></select></div>
+      <div><label for="fTema">Tema de pesquisa (classificação por ementa)</label><select id="fTema"></select></div>
+      <div><label for="fTipo">Tipo</label><select id="fTipo"></select></div>
+      <div><label for="fUni">Unidade emissora</label><select id="fUni"></select></div>
+      <div><label for="aDe">Ano de</label><input id="aDe" type="number" min="1960" max="2100"></div>
+      <div><label for="aAte">Ano até</label><input id="aAte" type="number" min="1960" max="2100"></div>
+      <div class="row"><label style="margin:0"><input type="checkbox" id="fStar"> só em acompanhamento ★</label></div>
+      <div class="row"><label style="margin:0"><input type="checkbox" id="fOld"> só com mais de 10 anos</label></div>
+      <div class="row"><button id="limpar">Limpar filtros</button><button id="csv" class="primary">Exportar CSV</button></div>
+    </div>
+    <div class="chips" id="chips"></div>
+  </section>
+
+  <h2 class="sec-title">Indicadores</h2>
+  <section class="kpis" id="kpis"></section>
+
+  <h2 class="sec-title">Gráficos</h2>
+  <section class="grid2">
+    <div class="card"><h2>Atos por ano de publicação (clique para filtrar)</h2><div class="tl" id="tl"></div><div class="tlx" id="tlx"></div></div>
+    <div class="card"><h2>Por tema de pesquisa</h2><div class="bars" id="bTema"></div></div>
+    <div class="card"><h2>Por tipo de ato</h2><div class="bars" id="bTipo"></div></div>
+    <div class="card"><h2>Por unidade emissora (top 10)</h2><div class="bars" id="bUni"></div></div>
+    <div class="card"><h2>Por eixo temático</h2><div class="bars" id="bEixo"></div></div>
+    <div class="card"><h2>Por década de publicação</h2><div class="bars" id="bDec"></div></div>
+    <div class="card"><h2>Defasagem: idade do ato</h2><div class="bars" id="bIdade"></div></div>
+  </section>
+
+  <section class="card">
+    <h2>Atos normativos <span id="cont"></span></h2>
+    <div class="tablewrap"><table>
+      <thead><tr>
+        <th data-k="star">★</th><th data-k="unidade">Unidade</th><th data-k="tipo">Tipo</th><th data-k="numero">Número</th>
+        <th data-k="ano">Ano</th><th data-k="ementa">Ementa</th><th>Temas / Eixos</th><th>Link</th></tr></thead>
+      <tbody id="tb"></tbody></table></div>
+    <div class="pg"><button id="prev">‹</button><span id="pginfo"></span><button id="next">›</button></div>
+  </section>
+</main>
+<main id="tabSei" hidden>
+  <h2 class="sec-title noprint">Acesso rápido</h2>
+  <div class="quick" id="quickS">
+    <button data-a="90">Últimos 90 dias</button><button data-a="ano">Ano corrente</button><button data-a="copq">Conselho de Pesquisa</button><button data-a="propq">Pró-Reitoria de Pesquisa</button>
+    <button data-a="bolsa">Bolsas</button><button data-a="pos">Pós-doutorado</button><button data-a="etica">Ética</button><button data-a="norm">Atos normativos</button>
+  </div>
+  <section class="card">
+    <h2>Filtros — publicações eletrônicas do SEI</h2>
+    <div class="filters">
+      <div><label for="sQ">Busca livre (descrição, unidade, resumo)</label><input id="sQ" type="search" placeholder="texto livre, sem acentos também"></div>
+      <div><label for="sUniPq">Unidade de pesquisa (coleta)</label><select id="sUniPq"></select></div>
+      <div><label for="sTermo">Palavra da coleta (resumo contém)</label><select id="sTermo"></select></div>
+      <div><label for="sCat">Categoria do ato</label><select id="sCat"></select></div>
+      <div><label for="sTipo">Tipo de ato</label><select id="sTipo"></select></div>
+      <div><label for="sUni">Unidade emissora</label><select id="sUni"></select></div>
+      <div><label for="sDe">Publicado de</label><input id="sDe" type="date"></div>
+      <div><label for="sAte">Publicado até</label><input id="sAte" type="date"></div>
+    </div>
+    <div class="kwbox">
+      <div class="kwrow">
+        <div class="kwin"><label for="kwIn">Palavras-chave (Enter ou vírgula para adicionar)</label>
+          <input id="kwIn" type="text" placeholder="ex.: bolsa, pós-doutorado, comitê de ética" autocomplete="off"></div>
+        <div><label for="kwModo">Combinar</label>
+          <select id="kwModo"><option value="or">Qualquer palavra (OU)</option><option value="and">Todas as palavras (E)</option></select></div>
+        <div><label for="kwEsc">Procurar em</label>
+          <select id="kwEsc"><option value="resumo">Resumo</option><option value="tudo">Resumo, ato e unidade</option></select></div>
+        <div class="row" style="align-self:end"><button id="sLimpar">Limpar tudo</button><button id="sCsv" class="primary">Exportar CSV</button></div>
+      </div>
+      <div class="chips" id="kwChips"></div>
+      <div class="sug"><span class="note">Termos frequentes na seleção (clique para adicionar):</span><span id="kwSug"></span></div>
+    </div>
+    <div class="chips" id="sChips"></div>
+    <p class="note" id="sNota"></p>
+  </section>
+  <h2 class="sec-title">Indicadores</h2>
+  <section class="kpis" id="sKpis"></section>
+  <h2 class="sec-title">Gráficos</h2>
+  <section class="grid2">
+    <div class="card"><h2>Publicações por mês (clique para filtrar)</h2><div class="tl" id="sTl"></div><div class="tlx" id="sTlx"></div><div class="note" id="sTlF"></div></div>
+    <div class="card"><h2>Por ano</h2><div class="bars" id="sbAno"></div></div>
+    <div class="card"><h2>Por unidade emissora (top 10)</h2><div class="bars" id="sbUni"></div></div>
+    <div class="card"><h2>Por tipo de ato</h2><div class="bars" id="sbTipo"></div></div>
+    <div class="card"><h2>Por categoria</h2><div class="bars" id="sbCat"></div></div>
+    <div class="card"><h2>Por unidade de pesquisa (coleta)</h2><div class="bars" id="sbUniPq"></div></div>
+    <div class="card"><h2>Por palavra da coleta (resumo contém)</h2><div class="bars" id="sbTermo"></div></div>
+    <div class="card"><h2>Palavras mais frequentes nos resumos</h2><div class="bars" id="sbFreq"></div></div>
+  </section>
+  <section class="card">
+    <h2>Cruzamento: unidade emissora × ano (clique numa célula para filtrar)</h2>
+    <div class="tablewrap" style="max-height:none"><table class="heat" id="sHeat"></table></div>
+  </section>
+  <section class="card">
+    <h2>Publicações <span id="sCont"></span></h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th data-s="data">Publicação</th><th data-s="protocolo">Protocolo</th><th data-s="descricao">Ato</th>
+        <th data-s="sigla">Unidade</th><th data-s="resumo">Resumo</th><th>Coleta</th><th>Link</th></tr></thead>
+      <tbody id="sTb"></tbody></table></div>
+    <div class="pg"><button id="sPrev">‹</button><span id="sPg"></span><button id="sNext">›</button></div>
+  </section>
+</main>
+<footer>
+  Fonte: página oficial dos Atos Normativos da UFSCar (consulta geral e eixos temáticos). Os temas de pesquisa são
+  uma classificação automática por palavras da ementa — confira o ato no SEI antes de citar. A marcação ★ fica salva só neste navegador.
+  Aba SEI: publicações eletrônicas (Boletim de Serviço) coletadas por unidades de pesquisa e por palavras no resumo; não é o universo completo de publicações da UFSCar.
+</footer>
+
+<script>
+const DATA = /*DATA*/{};
+const normas = DATA.normas;
+const ANO_REF = new Date().getFullYear();
+
+/* Temas de pesquisa: regras sobre a ementa */
+const TEMAS = [
+  ['Ética e integridade', /ética|integridade|CEUA|animais|seres humanos/i],
+  ['Biossegurança e patrimônio genético', /biosseguran|CIBio|SisGen|patrimônio genético/i],
+  ['Inovação e propriedade intelectual', /inovação|propriedade (industrial|intelectual)|transfer[êe]ncia de tecnologia|EMBRAPII|tecnológic/i],
+  ['Iniciação científica e bolsas', /iniciação científica|pré-iniciação|pré-IC|PIBIC|PIBITI|bolsas? de (pesquisa|iniciação)/i],
+  ['Pesquisadores e pós-doutorado', /pós-doutor|pesquisador|colaborador de pesquisa|visitante/i],
+  ['Governança da pesquisa', /Conselho de Pesquisa|Atividades de Pesquisa|Regimento.*Pesquisa|Instituto de Estudos Avançados/i],
+  ['Cooperação científica', /coopera[çc]ão (técnico|científic)|técnico-científic|acordo nacional/i],
+];
+const temasDe = n => {
+  const base = n.ementa + ' ' + n.unidade;
+  const t = TEMAS.filter(([, re]) => re.test(base)).map(([k]) => k);
+  if (!t.length && n.eixos.includes('Pesquisa e Inovação')) t.push('Outros — Pesquisa e Inovação');
+  return t;
+};
+normas.forEach((n, i) => {
+  n.id = n.link + '|' + n.tipo + '|' + n.numero + '|' + n.ano;
+  n.anoN = parseInt(n.ano, 10) || 0;
+  n.numN = parseInt(n.numero, 10) || 0;
+  n.temas = temasDe(n);
+  n.idade = n.anoN ? ANO_REF - n.anoN : null;
+  n.busca = (n.unidade + ' ' + n.tipo + ' ' + n.numero + ' ' + n.ano + ' ' + n.ementa).toLowerCase();
+});
+
+/* Acompanhamento ★ (localStorage com tolerância a falha) */
+let favs = new Set();
+try { favs = new Set(JSON.parse(localStorage.getItem('normasFavs') || '[]')); } catch (e) {}
+const salvaFavs = () => { try { localStorage.setItem('normasFavs', JSON.stringify([...favs])); } catch (e) {} };
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmt = n => n.toLocaleString('pt-BR');
+const S = { q: '', eixo: '', tema: '', tipo: '', uni: '', de: null, ate: null, star: false, old: false, sort: 'ano', desc: true, pg: 0 };
+const PAGE = 25;
+
+const uniq = (arr) => [...new Set(arr)].filter(Boolean).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+function fillSelect(el, vals, todos) {
+  el.innerHTML = `<option value="">${todos}</option>` + vals.map(v => `<option>${esc(v)}</option>`).join('');
+}
+fillSelect($('fEixo'), DATA.eixos.filter(e => normas.some(n => n.eixos.includes(e))), 'Todos os eixos');
+fillSelect($('fTema'), [...TEMAS.map(t => t[0]), 'Outros — Pesquisa e Inovação'], 'Todos os temas');
+fillSelect($('fTipo'), uniq(normas.map(n => n.tipo)), 'Todos os tipos');
+fillSelect($('fUni'), uniq(normas.flatMap(n => n.unidade.split(' / '))), 'Todas as unidades');
+const FONTE_N = `Dados coletados em ${DATA.coletadoEm} de <a href="${DATA.fonte}" target="_blank" rel="noopener">ufscar.br/atos-normativos-da-ufscar</a> — ${fmt(normas.length)} atos vigentes.`;
+$('fonte').innerHTML = FONTE_N;
+const heroN = n => { if (!$('tabNormas').hidden) { $('heroNum').textContent = fmt(n); $('heroLbl').textContent = 'atos na seleção (de ' + fmt(normas.length) + ')'; } };
+
+function filtrados(ignorar) {
+  const q = S.q.toLowerCase().trim();
+  return normas.filter(n =>
+    (!q || q.split(/\s+/).every(w => n.busca.includes(w))) &&
+    (ignorar === 'eixo' || !S.eixo || n.eixos.includes(S.eixo)) &&
+    (ignorar === 'tema' || !S.tema || n.temas.includes(S.tema)) &&
+    (ignorar === 'tipo' || !S.tipo || n.tipo === S.tipo) &&
+    (ignorar === 'uni' || !S.uni || n.unidade.split(' / ').includes(S.uni)) &&
+    (S.de == null || n.anoN >= S.de) && (S.ate == null || n.anoN <= S.ate) &&
+    (!S.star || favs.has(n.id)) && (!S.old || (n.idade != null && n.idade > 10)));
+}
+const count = (arr, f) => { const m = new Map(); arr.forEach(n => (f(n)).forEach(k => m.set(k, (m.get(k) || 0) + 1))); return [...m].sort((a, b) => b[1] - a[1]); };
+
+function bars(el, entries, key, max, base) {
+  const todas = entries, soma = todas.reduce((s, e) => s + e[1], 0);
+  entries = entries.slice(0, max || 12);
+  const top = Math.max(1, ...entries.map(e => e[1]));
+  el.innerHTML = (entries.length ? entries.map(([k, v]) => `<div class="bar ${key && S[key] === k ? 'on' : ''}" data-k="${esc(k)}" title="${esc(k)}: ${v}${base ? ' (' + Math.round(v / base * 100) + '% da seleção)' : ''}">
+    <span class="lb">${esc(k)}</span><span class="tr"><i style="width:${v / top * 100}%"></i></span><span class="n">${v}</span></div>`).join('')
+    : '<div class="empty">Sem dados</div>') +
+    (base && entries.length ? `<div class="note">Base: ${fmt(base)} atos` + (soma !== base ? ` · soma das barras ${fmt(soma)} (um ato pode ter mais de um valor)` : '') +
+      (todas.length > entries.length ? ` · mostrando ${entries.length} de ${todas.length}` : '') + '</div>' : '');
+  if (key) el.querySelectorAll('.bar').forEach(b => b.onclick = () => { if (b.dataset.k.startsWith('(')) return; S[key] = S[key] === b.dataset.k ? '' : b.dataset.k; S.pg = 0; sync(); render(); });
+}
+
+function render() {
+  const rows = filtrados(); heroN(rows.length);
+  const pesq =rows.filter(n => n.eixos.includes('Pesquisa e Inovação'));
+  const anos = rows.map(n => n.anoN).filter(Boolean);
+  const med = anos.length ? [...anos].sort((a, b) => a - b)[Math.floor(anos.length / 2)] : '—';
+  const ids = rows.filter(n => n.idade != null).map(n => n.idade);
+  const idMed = ids.length ? (ids.reduce((s, x) => s + x, 0) / ids.length).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) : '—';
+  const tipoLider = count(rows, n => [n.tipo])[0];
+  const velhos = rows.filter(n => n.idade != null && n.idade > 10).length;
+  const recentes = rows.filter(n => n.idade != null && n.idade <= 2).length;
+  $('kpis').innerHTML = [
+    [fmt(rows.length), 'atos na seleção (de ' + fmt(normas.length) + ')'],
+    [fmt(pesq.length), 'no eixo Pesquisa e Inovação'],
+    [fmt(rows.filter(n => n.temas.length).length), 'com tema de pesquisa identificado'],
+    [fmt(recentes), 'publicados nos últimos 2 anos'],
+    [fmt(velhos) + (rows.length ? ' (' + Math.round(velhos / rows.length * 100) + '%)' : ''), 'com mais de 10 anos — candidatos a revisão'],
+    [med, 'ano mediano de publicação'],
+    [idMed, 'idade média dos atos (anos)'],
+    [fmt(new Set(rows.flatMap(n => n.unidade.split(' / '))).size), 'unidades emissoras'],
+    [tipoLider ? tipoLider[0] : '—', 'tipo mais frequente' + (tipoLider ? ` (${tipoLider[1]} atos, ${Math.round(tipoLider[1] / rows.length * 100)}%)` : '')],
+    [rows.length ? Math.round(rows.filter(n => n.eixos.length > 1).length / rows.length * 100) + '%' : '—', 'atos em mais de um eixo temático'],
+    [fmt(rows.filter(n => favs.has(n.id)).length), 'em acompanhamento ★'],
+  ].map(([b, s]) => `<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join('');
+
+  // linha do tempo
+  const porAno = new Map(); rows.forEach(n => n.anoN && porAno.set(n.anoN, (porAno.get(n.anoN) || 0) + 1));
+  if (porAno.size) {
+    const y0 = Math.min(...porAno.keys()), y1 = Math.max(...porAno.keys()), mx = Math.max(...porAno.values());
+    let h = ''; for (let y = y0; y <= y1; y++) { const v = porAno.get(y) || 0;
+      h += `<div data-y="${y}" class="${S.de === y && S.ate === y ? 'on' : y === ANO_REF ? 'cur' : ''}" style="height:${Math.max(v ? 4 : 0, v / mx * 100)}%" title="${y}: ${v} ato(s)"></div>`; }
+    $('tl').innerHTML = h; $('tlx').innerHTML = `<span>${y0}</span><span>${Math.round((y0 + y1) / 2)}</span><span>${y1}</span>`;
+    $('tl').querySelectorAll('div').forEach(d => d.onclick = () => { const y = +d.dataset.y;
+      if (S.de === y && S.ate === y) { S.de = S.ate = null; } else { S.de = S.ate = y; } S.pg = 0; sync(); render(); });
+  } else { $('tl').innerHTML = '<div class="empty" style="width:100%">Sem dados</div>'; $('tlx').innerHTML = ''; }
+
+  // todos os gráficos usam a MESMA seleção da tabela e dos indicadores
+  const B = rows.length;
+  bars($('bTema'), count(rows, n => n.temas.length ? n.temas : ['(sem tema de pesquisa)']), 'tema', 12, B);
+  bars($('bTipo'), count(rows, n => [n.tipo]), 'tipo', 12, B);
+  bars($('bUni'), count(rows, n => n.unidade.split(' / ')), 'uni', 10, B);
+  bars($('bEixo'), count(rows, n => n.eixos), 'eixo', 20, B);
+  const dec = n => n.anoN ? Math.floor(n.anoN / 10) * 10 + 's' : 'Sem ano';
+  bars($('bDec'), count(rows, n => [dec(n)]).sort((a, b) => a[0].localeCompare(b[0])), null, 12, B);
+  const faixa = n => n.idade == null ? 'Sem ano' : n.idade <= 2 ? '0–2 anos' : n.idade <= 5 ? '3–5 anos' : n.idade <= 10 ? '6–10 anos' : n.idade <= 20 ? '11–20 anos' : 'Mais de 20 anos';
+  const ordem = ['0–2 anos', '3–5 anos', '6–10 anos', '11–20 anos', 'Mais de 20 anos', 'Sem ano'];
+  const cf = new Map(count(rows, n => [faixa(n)]));
+  bars($('bIdade'), ordem.filter(o => cf.has(o)).map(o => [o, cf.get(o)]), null, 12, B);
+
+  // chips
+  const ch = [];
+  if (S.q) ch.push(['q', 'Busca: ' + S.q]); if (S.eixo) ch.push(['eixo', S.eixo]); if (S.tema) ch.push(['tema', S.tema]);
+  if (S.tipo) ch.push(['tipo', S.tipo]); if (S.uni) ch.push(['uni', S.uni]);
+  if (S.de != null || S.ate != null) ch.push(['ano', `Ano ${S.de ?? '…'}–${S.ate ?? '…'}`]);
+  if (S.star) ch.push(['star', 'Em acompanhamento']); if (S.old) ch.push(['old', '> 10 anos']);
+  $('chips').innerHTML = ch.map(([k, t]) => `<span class="chip" data-k="${k}">${esc(t)}</span>`).join('');
+  $('chips').querySelectorAll('.chip').forEach(c => c.onclick = () => {
+    const k = c.dataset.k; if (k === 'ano') S.de = S.ate = null; else if (k === 'star' || k === 'old') S[k] = false; else S[k] = '';
+    S.pg = 0; sync(); render(); });
+
+  // tabela
+  const dir = S.desc ? -1 : 1;
+  rows.sort((a, b) => {
+    let x, y;
+    if (S.sort === 'star') { x = favs.has(a.id) ? 1 : 0; y = favs.has(b.id) ? 1 : 0; }
+    else if (S.sort === 'ano') { x = a.anoN * 100000 + a.numN; y = b.anoN * 100000 + b.numN; }
+    else if (S.sort === 'numero') { x = a.numN; y = b.numN; }
+    else { return dir * String(a[S.sort]).localeCompare(String(b[S.sort]), 'pt-BR'); }
+    return dir * (x - y);
+  });
+  const pages = Math.max(1, Math.ceil(rows.length / PAGE)); S.pg = Math.min(S.pg, pages - 1);
+  const vis = rows.slice(S.pg * PAGE, S.pg * PAGE + PAGE);
+  $('cont').textContent = `(${fmt(rows.length)})`;
+  $('tb').innerHTML = vis.length ? vis.map(n => `<tr>
+    <td><button class="star ${favs.has(n.id) ? 'on' : ''}" data-id="${esc(n.id)}" title="Acompanhar">${favs.has(n.id) ? '★' : '☆'}</button></td>
+    <td>${esc(n.unidade)}</td><td>${esc(n.tipo)}</td><td>${esc(n.numero)}</td>
+    <td>${esc(n.ano)}${n.idade > 10 ? ` <span class="age-old" title="${n.idade} anos">●</span>` : ''}</td>
+    <td>${esc(n.ementa)}</td>
+    <td>${n.temas.map(t => `<span class="tag t">${esc(t)}</span>`).join('')}${n.eixos.map(e => `<span class="tag">${esc(e)}</span>`).join('')}</td>
+    <td><a href="${esc(n.link)}" target="_blank" rel="noopener">SEI</a></td></tr>`).join('')
+    : '<tr><td colspan="8" class="empty">Nenhum ato encontrado com esses filtros.</td></tr>';
+  $('tb').querySelectorAll('.star').forEach(b => b.onclick = () => { const id = b.dataset.id;
+    favs.has(id) ? favs.delete(id) : favs.add(id); salvaFavs(); render(); });
+  $('pginfo').textContent = `${S.pg + 1} / ${pages}`;
+  $('prev').disabled = S.pg === 0; $('next').disabled = S.pg >= pages - 1;
+  document.querySelectorAll('th[data-k]').forEach(t => { t.classList.toggle('s', t.dataset.k === S.sort); t.classList.toggle('d', t.dataset.k === S.sort && S.desc); });
+  saveHash();
+}
+
+/* estado na URL (#) para compartilhar uma visão */
+function saveHash() {
+  const p = new URLSearchParams();
+  [['q', S.q], ['eixo', S.eixo], ['tema', S.tema], ['tipo', S.tipo], ['uni', S.uni], ['de', S.de ?? ''], ['ate', S.ate ?? ''],
+   ['star', S.star ? 1 : ''], ['old', S.old ? 1 : '']].forEach(([k, v]) => v !== '' && p.set(k, v));
+  try { history.replaceState(null, '', p.toString() ? '#' + p : location.pathname + location.search); } catch (e) {}
+}
+function loadHash() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  S.q = p.get('q') || ''; S.eixo = p.get('eixo') || ''; S.tema = p.get('tema') || ''; S.tipo = p.get('tipo') || ''; S.uni = p.get('uni') || '';
+  S.de = p.get('de') ? +p.get('de') : null; S.ate = p.get('ate') ? +p.get('ate') : null; S.star = !!p.get('star'); S.old = !!p.get('old');
+  if (![...p.keys()].length) S.eixo = 'Pesquisa e Inovação';   // visão inicial: pesquisa
+}
+function sync() {
+  $('q').value = S.q; $('fEixo').value = S.eixo; $('fTema').value = S.tema; $('fTipo').value = S.tipo; $('fUni').value = S.uni;
+  $('aDe').value = S.de ?? ''; $('aAte').value = S.ate ?? ''; $('fStar').checked = S.star; $('fOld').checked = S.old;
+}
+const bind = (id, f, ev = 'input') => $(id).addEventListener(ev, e => { f(e.target); S.pg = 0; render(); });
+bind('q', e => S.q = e.value); bind('fEixo', e => S.eixo = e.value, 'change'); bind('fTema', e => S.tema = e.value, 'change');
+bind('fTipo', e => S.tipo = e.value, 'change'); bind('fUni', e => S.uni = e.value, 'change');
+bind('aDe', e => S.de = e.value ? +e.value : null); bind('aAte', e => S.ate = e.value ? +e.value : null);
+bind('fStar', e => S.star = e.checked, 'change'); bind('fOld', e => S.old = e.checked, 'change');
+$('limpar').onclick = () => { Object.assign(S, { q: '', eixo: '', tema: '', tipo: '', uni: '', de: null, ate: null, star: false, old: false, pg: 0 }); sync(); render(); };
+$('prev').onclick = () => { S.pg--; render(); }; $('next').onclick = () => { S.pg++; render(); };
+document.querySelectorAll('th[data-k]').forEach(t => t.onclick = () => {
+  const k = t.dataset.k; if (S.sort === k) S.desc = !S.desc; else { S.sort = k; S.desc = (k === 'ano' || k === 'star'); } render(); });
+$('csv').onclick = () => {
+  const rows = filtrados(); const q = v => '"' + String(v).replace(/"/g, '""') + '"';
+  const csv = ['Unidade;Tipo;Número;Ano;Ementa;Temas;Eixos;Link'].concat(rows.map(n =>
+    [n.unidade, n.tipo, n.numero, n.ano, n.ementa, n.temas.join(', '), n.eixos.join(', '), n.link].map(q).join(';'))).join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'atos-normativos-ufscar.csv'; a.click(); URL.revokeObjectURL(a.href);
+};
+window.addEventListener('hashchange', () => { loadHash(); sync(); render(); });
+loadHash(); sync(); render();
+
+/* ===== Aba: Publicações no SEI ===== */
+const SEI = /*SEI*/{};
+const pubs = SEI.publicacoes || [];
+/* dobra acentos e caixa mantendo o comprimento do texto (permite destacar no original) */
+const fold = s => Array.from(String(s)).map(c => (c.normalize('NFD').replace(/[̀-ͯ]/g, '')[0] || c).toLowerCase()).join('');
+const STOP = new Set(('de da do das dos e em a o as os para por com no na nos nas ao aos que um uma uns umas se ou sua seu suas seus sobre entre ate como mais ' +
+  'sao foi ser sera este esta esse essa isso nao pelo pela pelos pelas apos desde conforme vigente referente referentes respectivo ' +
+  'concessao conceder aprova aprovar designa designar dispoe institui nomeia altera torna autoriza resolve resolucao portaria ato ufscar ' +
+  'universidade federal carlos sao anexo processo sei documento mes maio junho julho agosto setembro outubro janeiro fevereiro marco abril novembro dezembro').split(' '));
+
+pubs.forEach(p => {
+  const m = p.descricao.match(/^(?:(.*?):\s*)?(.*?)((?:\s+[\d./-]+)*)$/);
+  if (m && !m[1]) m[1] = 'Outros';
+  p.cat = m ? m[1] : 'Outros'; p.tipoAto = m ? m[2] : p.descricao; p.num = m ? m[3].trim() : '';
+  const [d, mo, y] = p.data.split('/'); p.iso = `${y}-${mo}-${d}`; p.mes = `${y}-${mo}`; p.ano = y;
+  p.uniPq = p.origem.filter(o => o.startsWith('Unidade ')).map(o => o.slice(8));
+  p.termos = p.origem.filter(o => o.startsWith('Resumo:')).map(o => o.slice(7).trim());
+  p.nResumo = fold(p.resumo);
+  p.nTudo = fold(p.descricao + ' ' + p.unidade + ' ' + p.sigla + ' ' + p.resumo + ' ' + p.protocolo);
+  p.palavras = [...new Set(p.nResumo.split(/[^a-z0-9]+/).filter(w => w.length > 3 && !STOP.has(w) && !/^\d+$/.test(w)))];
+});
+const SS = { q: '', kws: [], modo: 'or', esc: 'resumo', uniPq: '', termo: '', cat: '', tipo: '', uni: '', de: '', ate: '', mes: '', ano: '', sort: 'data', desc: true, pg: 0 };
+const nome = p => p.sigla + ' — ' + p.unidade;
+fillSelect($('sUniPq'), uniq(pubs.flatMap(p => p.uniPq)), 'Todas / qualquer');
+fillSelect($('sTermo'), uniq(pubs.flatMap(p => p.termos)), 'Todas / qualquer');
+fillSelect($('sCat'), uniq(pubs.map(p => p.cat)), 'Todas as categorias');
+fillSelect($('sTipo'), uniq(pubs.map(p => p.tipoAto)), 'Todos os tipos');
+fillSelect($('sUni'), uniq(pubs.map(nome)), 'Todas as unidades');
+$('sNota').textContent = pubs.length ? `Coletado em ${SEI.coletadoEm} de sei.ufscar.br (Publicações Eletrônicas): ${fmt(pubs.length)} publicações únicas, ` +
+  `reunidas por unidades de pesquisa e por palavras no resumo. "Unidade de pesquisa" e "Palavra da coleta" dizem como o ato foi encontrado; ` +
+  `as palavras-chave acima são uma busca livre sobre o texto e podem ser qualquer termo. Todos os gráficos, indicadores e a tabela refletem exatamente a mesma seleção.` : 'Sem dados coletados.';
+
+function kwOk(p) {
+  if (!SS.kws.length) return true;
+  const h = SS.esc === 'resumo' ? p.nResumo : p.nTudo;
+  const t = SS.kws.map(k => h.includes(fold(k)));
+  return SS.modo === 'and' ? t.every(Boolean) : t.some(Boolean);
+}
+function sFilt() {
+  const q = fold(SS.q).trim();
+  return pubs.filter(p =>
+    (!q || q.split(/\s+/).every(w => p.nTudo.includes(w))) && kwOk(p) &&
+    (!SS.uniPq || p.uniPq.includes(SS.uniPq)) && (!SS.termo || p.termos.includes(SS.termo)) &&
+    (!SS.cat || p.cat === SS.cat) && (!SS.tipo || p.tipoAto === SS.tipo) && (!SS.uni || nome(p) === SS.uni) &&
+    (!SS.de || p.iso >= SS.de) && (!SS.ate || p.iso <= SS.ate) && (!SS.mes || p.mes === SS.mes) && (!SS.ano || p.ano === SS.ano));
+}
+/* gráfico de barras: usa SEMPRE a seleção atual e informa a base e a soma */
+function sBars(el, rows, getter, key, max, onClick) {
+  const all = count(rows, getter), soma = all.reduce((s, e) => s + e[1], 0);
+  const entries = all.slice(0, max || 12), top = Math.max(1, ...entries.map(e => e[1]));
+  el.innerHTML = (entries.length ? entries.map(([k, v]) => `<div class="bar ${key && SS[key] === k ? 'on' : ''}" data-k="${esc(k)}" title="${esc(k)}: ${v} (${Math.round(v / rows.length * 100)}% da seleção)">
+    <span class="lb">${esc(k)}</span><span class="tr"><i style="width:${v / top * 100}%"></i></span><span class="n">${v}</span></div>`).join('')
+    : '<div class="empty">Sem dados</div>') +
+    (entries.length ? `<div class="note">Base: ${fmt(rows.length)} publicações` + (soma !== rows.length ? ` · soma das barras ${fmt(soma)} (um ato pode ter mais de um valor)` : '') +
+      (all.length > entries.length ? ` · mostrando ${entries.length} de ${all.length}` : '') + '</div>' : '');
+  el.querySelectorAll('.bar').forEach(b => b.onclick = () => {
+    if (onClick) onClick(b.dataset.k); else if (key) SS[key] = SS[key] === b.dataset.k ? '' : b.dataset.k;
+    SS.pg = 0; sSync(); sRender(); });
+}
+const pct = (a, b) => b ? Math.round(a / b * 100) + '%' : '—';
+const lider = (rows, f) => { const c = count(rows, f)[0]; return c ? [c[0], c[1]] : ['—', 0]; };
+
+function sRender() {
+  const rows = sFilt(), N = rows.length;
+  $('heroNum').textContent = fmt(N); $('heroLbl').textContent = 'publicações na seleção (de ' + fmt(pubs.length) + ')';
+  const hoje = Date.now(), iso = d => new Date(d).toISOString().slice(0, 10);
+  const r90 = rows.filter(p => p.iso >= iso(hoje - 90 * 864e5)).length;
+  const a90 = rows.filter(p => p.iso < iso(hoje - 90 * 864e5) && p.iso >= iso(hoje - 180 * 864e5)).length;
+  const varia = a90 ? Math.round((r90 - a90) / a90 * 100) : null;
+  const meses = new Set(rows.map(p => p.mes)).size;
+  const ult = rows.reduce((m, p) => p.iso > m ? p.iso : m, '');
+  const lu = lider(rows, p => [nome(p)]), lt = lider(rows, p => [p.tipoAto]);
+  const norm = rows.filter(p => p.cat === 'Ato Normativo').length;
+  const multi = rows.filter(p => p.origem.length > 1).length;
+  $('sKpis').innerHTML = [
+    [fmt(N), `publicações na seleção (de ${fmt(pubs.length)})`],
+    [fmt(r90), 'nos últimos 90 dias' + (varia == null ? '' : ` (${varia > 0 ? '+' : ''}${varia}% vs. 90 dias anteriores)`)],
+    [meses ? (N / meses).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) : '—', `média por mês ativo (${meses} meses)`],
+    [fmt(new Set(rows.map(p => p.sigla)).size), 'unidades emissoras'],
+    [lu[0].split(' — ')[0], `unidade líder: ${lu[1]} (${pct(lu[1], N)})`],
+    [fmt(lt[1]), `${lt[0]} — tipo mais frequente (${pct(lt[1], N)})`],
+    [pct(norm, N), `atos normativos (${fmt(norm)})`],
+    [pct(multi, N), 'achados por 2+ critérios de coleta'],
+    [ult ? ult.split('-').reverse().join('/') : '—', 'publicação mais recente'],
+  ].map(([b, s]) => `<div class="kpi"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
+
+  // linha do tempo mensal (mesma seleção)
+  const pm = new Map(); rows.forEach(p => pm.set(p.mes, (pm.get(p.mes) || 0) + 1));
+  if (pm.size) {
+    const ks = [...pm.keys()].sort(), ms = []; let [y, m] = ks[0].split('-').map(Number); const [y1, m1] = ks[ks.length - 1].split('-').map(Number);
+    while (y < y1 || (y === y1 && m <= m1)) { ms.push(`${y}-${String(m).padStart(2, '0')}`); if (++m > 12) { m = 1; y++; } }
+    const mx = Math.max(...pm.values());
+    $('sTl').innerHTML = ms.map(k => { const v = pm.get(k) || 0;
+      return `<div data-m="${k}" class="${SS.mes === k ? 'on' : k === new Date().toISOString().slice(0, 7) ? 'cur' : ''}" style="height:${Math.max(v ? 4 : 0, v / mx * 100)}%" title="${k.split('-').reverse().join('/')}: ${v}"></div>`; }).join('');
+    $('sTlx').innerHTML = `<span>${ms[0].split('-').reverse().join('/')}</span><span>${ms[ms.length - 1].split('-').reverse().join('/')}</span>`;
+    $('sTlF').textContent = `Base: ${fmt(N)} publicações · pico: ${mx} em ${ms.filter(k => pm.get(k) === mx)[0].split('-').reverse().join('/')}`;
+    $('sTl').querySelectorAll('div').forEach(d => d.onclick = () => { SS.mes = SS.mes === d.dataset.m ? '' : d.dataset.m; SS.pg = 0; sSync(); sRender(); });
+  } else { $('sTl').innerHTML = '<div class="empty" style="width:100%">Sem dados</div>'; $('sTlx').innerHTML = ''; $('sTlF').textContent = ''; }
+
+  sBars($('sbAno'), rows, p => [p.ano], 'ano', 12);
+  sBars($('sbUni'), rows, p => [nome(p)], 'uni', 10);
+  sBars($('sbTipo'), rows, p => [p.tipoAto], 'tipo');
+  sBars($('sbCat'), rows, p => [p.cat], 'cat');
+  sBars($('sbUniPq'), rows, p => p.uniPq.length ? p.uniPq : ['(não veio de unidade de pesquisa)'], 'uniPq', 10,
+    k => { SS.uniPq = SS.uniPq === k ? '' : (k.startsWith('(') ? '' : k); });
+  sBars($('sbTermo'), rows, p => p.termos.length ? p.termos : ['(não veio de palavra)'], 'termo', 15,
+    k => { SS.termo = SS.termo === k ? '' : (k.startsWith('(') ? '' : k); });
+  sBars($('sbFreq'), rows, p => p.palavras, null, 15, k => { if (!SS.kws.some(x => fold(x) === k)) SS.kws.push(k); });
+
+  // sugestões de termos
+  $('kwSug').innerHTML = count(rows, p => p.palavras).filter(([k]) => !SS.kws.some(x => fold(x) === k)).slice(0, 24)
+    .map(([k, v]) => `<span class="sg" data-k="${esc(k)}">${esc(k)} <i>${v}</i></span>`).join('');
+  $('kwSug').querySelectorAll('.sg').forEach(s => s.onclick = () => { SS.kws.push(s.dataset.k); SS.pg = 0; sSync(); sRender(); });
+
+  // mapa de calor unidade × ano
+  const anos = uniq(rows.map(p => p.ano)), us = count(rows, p => [p.sigla]).slice(0, 10).map(e => e[0]);
+  const cel = new Map(); rows.forEach(p => { const k = p.sigla + '|' + p.ano; cel.set(k, (cel.get(k) || 0) + 1); });
+  const mxc = Math.max(1, ...cel.values());
+  $('sHeat').innerHTML = us.length ? `<thead><tr><th>Unidade</th>${anos.map(a => `<th style="text-align:center">${a}</th>`).join('')}<th style="text-align:center">Total</th></tr></thead><tbody>` +
+    us.map(u => `<tr><td>${esc(u)}</td>${anos.map(a => { const v = cel.get(u + '|' + a) || 0;
+      return `<td class="hc" data-u="${esc(u)}" data-a="${a}" style="background:color-mix(in srgb,var(--c1) ${Math.round(v / mxc * 85)}%,transparent)" title="${esc(u)} · ${a}: ${v}">${v || ''}</td>`; }).join('')}
+      <td class="hc" style="font-weight:600">${count(rows.filter(p => p.sigla === u), () => [1])[0][1]}</td></tr>`).join('') +
+    `</tbody><caption class="note" style="caption-side:bottom;text-align:left">Top ${us.length} unidades da seleção; Base: ${fmt(N)} publicações.</caption>` : '<tbody><tr><td class="empty">Sem dados</td></tr></tbody>';
+  $('sHeat').querySelectorAll('td.hc[data-u]').forEach(c => c.onclick = () => {
+    const p = pubs.find(x => x.sigla === c.dataset.u); SS.uni = nome(p); SS.ano = c.dataset.a; SS.pg = 0; sSync(); sRender(); });
+
+  // chips de filtros ativos
+  const rot = { uniPq: 'Unidade de pesquisa', termo: 'Palavra da coleta', cat: 'Categoria', tipo: 'Tipo', uni: 'Emissora', ano: 'Ano' };
+  const ch = [];
+  if (SS.q) ch.push(['q', 'Busca: ' + SS.q]);
+  Object.keys(rot).forEach(k => SS[k] && ch.push([k, rot[k] + ': ' + SS[k]]));
+  if (SS.mes) ch.push(['mes', 'Mês ' + SS.mes.split('-').reverse().join('/')]);
+  if (SS.de) ch.push(['de', 'de ' + SS.de.split('-').reverse().join('/')]); if (SS.ate) ch.push(['ate', 'até ' + SS.ate.split('-').reverse().join('/')]);
+  $('sChips').innerHTML = ch.map(([k, t]) => `<span class="chip" data-k="${k}">${esc(t)}</span>`).join('');
+  $('sChips').querySelectorAll('.chip').forEach(c => c.onclick = () => { SS[c.dataset.k] = ''; SS.pg = 0; sSync(); sRender(); });
+  $('kwChips').innerHTML = SS.kws.map((k, i) => `<span class="chip kw" data-i="${i}">${esc(k)}</span>`).join('') +
+    (SS.kws.length > 1 ? `<span class="note">combinados por ${SS.modo === 'and' ? 'E (todas)' : 'OU (qualquer)'}</span>` : '');
+  $('kwChips').querySelectorAll('.chip').forEach(c => c.onclick = () => { SS.kws.splice(+c.dataset.i, 1); SS.pg = 0; sSync(); sRender(); });
+
+  // tabela
+  const dir = SS.desc ? -1 : 1;
+  rows.sort((a, b) => SS.sort === 'data' ? dir * (a.iso.localeCompare(b.iso) || (+a.protocolo - +b.protocolo))
+    : SS.sort === 'protocolo' ? dir * (+a.protocolo - +b.protocolo) : dir * String(a[SS.sort]).localeCompare(String(b[SS.sort]), 'pt-BR'));
+  const pages = Math.max(1, Math.ceil(N / PAGE)); SS.pg = Math.min(SS.pg, pages - 1);
+  $('sCont').textContent = `(${fmt(N)})`;
+  $('sTb').innerHTML = N ? rows.slice(SS.pg * PAGE, SS.pg * PAGE + PAGE).map(p => `<tr>
+    <td>${esc(p.data)}</td><td>${esc(p.protocolo)}</td><td>${esc(p.descricao)}</td>
+    <td title="${esc(p.unidade)}">${esc(p.sigla)}</td><td>${hl(p.resumo)}</td>
+    <td>${p.uniPq.map(u => `<span class="tag u">${esc(u)}</span>`).join('')}${p.termos.map(t => `<span class="tag">“${esc(t)}”</span>`).join('')}</td>
+    <td><a href="${esc(p.link)}" target="_blank" rel="noopener">SEI</a></td></tr>`).join('')
+    : '<tr><td colspan="7" class="empty">Nenhuma publicação encontrada com esses filtros.</td></tr>';
+  $('sPg').textContent = `${SS.pg + 1} / ${pages}`; $('sPrev').disabled = SS.pg === 0; $('sNext').disabled = SS.pg >= pages - 1;
+  document.querySelectorAll('th[data-s]').forEach(t => { t.classList.toggle('s', t.dataset.s === SS.sort); t.classList.toggle('d', t.dataset.s === SS.sort && SS.desc); });
+}
+/* destaca palavras-chave no resumo (ignora acentos e caixa) */
+function hl(texto) {
+  const f = fold(texto), ks = SS.kws.map(fold).filter(Boolean); const marc = new Array(f.length).fill(false);
+  ks.forEach(k => { for (let i = f.indexOf(k); i >= 0; i = f.indexOf(k, i + k.length)) for (let j = i; j < i + k.length; j++) marc[j] = true; });
+  let out = '', abre = false;
+  for (let i = 0; i < texto.length; i++) {
+    if (marc[i] && !abre) { out += '<mark>'; abre = true; } if (!marc[i] && abre) { out += '</mark>'; abre = false; }
+    out += esc(texto[i]);
+  }
+  return out + (abre ? '</mark>' : '');
+}
+function sSync() {
+  $('sQ').value = SS.q; $('sUniPq').value = SS.uniPq; $('sTermo').value = SS.termo; $('sCat').value = SS.cat; $('sTipo').value = SS.tipo;
+  $('sUni').value = SS.uni; $('sDe').value = SS.de; $('sAte').value = SS.ate; $('kwModo').value = SS.modo; $('kwEsc').value = SS.esc;
+}
+[['sQ', 'q', 'input'], ['sUniPq', 'uniPq', 'change'], ['sTermo', 'termo', 'change'], ['sCat', 'cat', 'change'], ['sTipo', 'tipo', 'change'],
+ ['sUni', 'uni', 'change'], ['sDe', 'de', 'change'], ['sAte', 'ate', 'change'], ['kwModo', 'modo', 'change'], ['kwEsc', 'esc', 'change']]
+  .forEach(([id, k, ev]) => $(id).addEventListener(ev, e => { SS[k] = e.target.value; SS.pg = 0; sRender(); }));
+function addKw(txt) {
+  txt.split(',').map(s => s.trim()).filter(Boolean).forEach(k => { if (!SS.kws.some(x => fold(x) === fold(k))) SS.kws.push(k); });
+  $('kwIn').value = ''; SS.pg = 0; sRender();
+}
+$('kwIn').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addKw($('kwIn').value); }
+  else if (e.key === 'Backspace' && !$('kwIn').value && SS.kws.length) { SS.kws.pop(); sRender(); } });
+$('kwIn').addEventListener('blur', () => { if ($('kwIn').value.trim()) addKw($('kwIn').value); });
+$('sLimpar').onclick = () => { Object.assign(SS, { q: '', kws: [], uniPq: '', termo: '', cat: '', tipo: '', uni: '', de: '', ate: '', mes: '', ano: '', pg: 0 }); sSync(); sRender(); };
+$('sPrev').onclick = () => { SS.pg--; sRender(); }; $('sNext').onclick = () => { SS.pg++; sRender(); };
+document.querySelectorAll('th[data-s]').forEach(t => t.onclick = () => {
+  const k = t.dataset.s; if (SS.sort === k) SS.desc = !SS.desc; else { SS.sort = k; SS.desc = (k === 'data' || k === 'protocolo'); } sRender(); });
+$('sCsv').onclick = () => {
+  const q = v => '"' + String(v).replace(/"/g, '""') + '"';
+  const csv = ['Data;Protocolo;Ato;Unidade;Sigla;Resumo;Unidades de pesquisa;Palavras da coleta;Link'].concat(sFilt().map(p =>
+    [p.data, p.protocolo, p.descricao, p.unidade, p.sigla, p.resumo, p.uniPq.join(', '), p.termos.join(', '), p.link].map(q).join(';'))).join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'publicacoes-sei-ufscar.csv'; a.click(); URL.revokeObjectURL(a.href);
+};
+function aba(sei) {
+  $('tabNormas').hidden = sei; $('tabSei').hidden = !sei;
+  $('tabBtnNormas').classList.toggle('on', !sei); $('tabBtnSei').classList.toggle('on', sei);
+  $('heroTag').textContent = sei ? 'SEI · Publicações eletrônicas' : 'UFSCar · Pesquisa e Inovação';
+  $('heroH1').textContent = sei ? 'Publicações no SEI relacionadas à pesquisa' : 'Atos normativos vigentes — acompanhamento de pesquisa';
+  $('fonte').innerHTML = sei ? 'Boletim de Serviço Eletrônico, coletado em ' + SEI.coletadoEm + ' de sei.ufscar.br (busca pública de Publicações Eletrônicas).' : FONTE_N;
+  if (sei) sRender(); else render();
+}
+/* tema claro/escuro e impressão */
+$('tema').onclick = () => {
+  const r = document.documentElement, dark = r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme:dark)').matches;
+  r.dataset.theme = dark ? 'light' : 'dark';
+};
+$('imprimir').onclick = () => print();
+/* acesso rápido */
+const hoje = () => new Date();
+const iso = d => d.toISOString().slice(0, 10);
+$('quickN').querySelectorAll('button').forEach(b => b.onclick = () => {
+  Object.assign(S, { q: '', eixo: '', tema: '', tipo: '', uni: '', de: null, ate: null, star: false, old: false, pg: 0 });
+  const a = b.dataset.a;
+  if (a === 'pq') S.eixo = 'Pesquisa e Inovação'; else if (a === 'rec') S.de = ANO_REF - 2; else if (a === 'old') { S.old = true; S.eixo = 'Pesquisa e Inovação'; }
+  else if (a === 'etica') S.tema = 'Ética e integridade'; else if (a === 'inov') S.tema = 'Inovação e propriedade intelectual';
+  sync(); render();
+});
+$('quickS').querySelectorAll('button').forEach(b => b.onclick = () => {
+  Object.assign(SS, { q: '', kws: [], uniPq: '', termo: '', cat: '', tipo: '', uni: '', de: '', ate: '', mes: '', ano: '', pg: 0 });
+  const a = b.dataset.a;
+  if (a === '90') SS.de = iso(new Date(Date.now() - 90 * 864e5)); else if (a === 'ano') SS.ano = String(hoje().getFullYear());
+  else if (a === 'copq') SS.uniPq = 'CoPq'; else if (a === 'propq') SS.uniPq = 'ProPq'; else if (a === 'bolsa') SS.kws = ['bolsa']; else if (a === 'pos') SS.kws = ['pós-doutorado'];
+  else if (a === 'etica') SS.kws = ['ética']; else if (a === 'norm') SS.cat = 'Ato Normativo';
+  sSync(); sRender();
+});
+$('tabBtnNormas').onclick = () => aba(false); $('tabBtnSei').onclick = () => aba(true);
+</script>
+</body>
+</html>
+
+

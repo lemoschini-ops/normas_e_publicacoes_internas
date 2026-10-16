@@ -1,0 +1,36 @@
+name: Atualizar dados (diário)
+
+on:
+  schedule:
+    - cron: '0 13 * * *'  # 13:00 UTC = 10:00 em Brasília
+    - cron: '0 19 * * *'  # 19:00 UTC = 16:00 em Brasília
+  workflow_dispatch:       # também pode ser disparado manualmente na aba Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atualizar-dados
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Coletar, validar e gerar painel
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/atualizar.ps1
+      - name: Publicar mudanças
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/normas.json data/publicacoes_sei.json data/atualizacao.json normas.html
+          if git diff --cached --quiet; then
+            echo "Sem mudanças."
+          else
+            git commit -m "Atualização automática dos dados ($(date -u +%F))"
+            git push
+          fi
