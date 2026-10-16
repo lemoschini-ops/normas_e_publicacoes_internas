@@ -729,6 +729,22 @@
                                        ]
                         },
                         {
+                            "protocolo":  "0281514",
+                            "idDocumento":  "318584",
+                            "descricao":  "Ato Oficial: Portaria 4627",
+                            "veiculo":  "Boletim de Serviço Eletrônico",
+                            "data":  "18/11/2020",
+                            "unidade":  "Gabinete da Reitoria",
+                            "sigla":  "GR",
+                            "resumo":  "Nomeação de representante do CECH para compor o Comitê de Ética em Pesquisa em Seres Humanos da UFSCar",
+                            "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=318584\u0026id_orgao_publicacao=0",
+                            "origem":  [
+                                           "Resumo: pesquisa",
+                                           "Resumo: ética",
+                                           "Resumo: seres humanos"
+                                       ]
+                        },
+                        {
                             "protocolo":  "2205200",
                             "idDocumento":  "2450774",
                             "descricao":  "Ato Oficial: Portaria 8209",
@@ -2016,19 +2032,18 @@
                                        ]
                         },
                         {
-                            "protocolo":  "0281514",
-                            "idDocumento":  "318584",
-                            "descricao":  "Ato Oficial: Portaria 4627",
+                            "protocolo":  "2479879",
+                            "idDocumento":  "2753089",
+                            "descricao":  "Ato Oficial: Ato Administrativo Ad Referendum 9",
                             "veiculo":  "Boletim de Serviço Eletrônico",
-                            "data":  "18/11/2020",
-                            "unidade":  "Gabinete da Reitoria",
-                            "sigla":  "GR",
-                            "resumo":  "Nomeação de representante do CECH para compor o Comitê de Ética em Pesquisa em Seres Humanos da UFSCar",
-                            "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=318584\u0026id_orgao_publicacao=0",
+                            "data":  "16/10/2026",
+                            "unidade":  "Conselho do Instituto de Estudos Avançados e Estratégicos",
+                            "sigla":  "CoIEAE",
+                            "resumo":  "Aprovação de Relatório Final pesquisador Visitante -Prof. Dr. Ruben Omar Barakat Carballo",
+                            "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=2753089\u0026id_orgao_publicacao=0",
                             "origem":  [
-                                           "Resumo: pesquisa",
-                                           "Resumo: ética",
-                                           "Resumo: seres humanos"
+                                           "Unidade CoIEAE",
+                                           "Resumo: pesquisador"
                                        ]
                         },
                         {
@@ -2330,6 +2345,20 @@
                             "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=735399\u0026id_orgao_publicacao=0",
                             "origem":  [
                                            "Resumo: inovação"
+                                       ]
+                        },
+                        {
+                            "protocolo":  "2480809",
+                            "idDocumento":  "2754094",
+                            "descricao":  "Ato Oficial: Portaria 8687",
+                            "veiculo":  "Boletim de Serviço Eletrônico",
+                            "data":  "16/10/2026",
+                            "unidade":  "Gabinete da Reitoria",
+                            "sigla":  "GR",
+                            "resumo":  "Designa representante suplente dos técnico-administrativos junto à Comissão Permanente de Ética da UFSCar",
+                            "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=2754094\u0026id_orgao_publicacao=0",
+                            "origem":  [
+                                           "Resumo: ética"
                                        ]
                         },
                         {
@@ -7813,21 +7842,6 @@
                                        ]
                         },
                         {
-                            "protocolo":  "2217166",
-                            "idDocumento":  "2463889",
-                            "descricao":  "Ato Normativo: Instrução Normativa 8",
-                            "veiculo":  "Boletim de Serviço Eletrônico",
-                            "data":  "27/04/2026",
-                            "unidade":  "Pró-Reitoria de Pós-Graduação",
-                            "sigla":  "ProPG",
-                            "resumo":  "Dispõe sobre os critérios para distribuição de cotas de bolsas institucionais e oriundas de Agências de Fomento aos Programas de Pós-Graduação da Universidade Federal de São Carlos",
-                            "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=2463889\u0026id_orgao_publicacao=0",
-                            "origem":  [
-                                           "Resumo: bolsas",
-                                           "Resumo: fomento"
-                                       ]
-                        },
-                        {
                             "protocolo":  "2412549",
                             "idDocumento":  "2679469",
                             "descricao":  "Ato Oficial: Ato Administrativo 145",
@@ -10348,17 +10362,18 @@
                                        ]
                         },
                         {
-                            "protocolo":  "1691977",
-                            "idDocumento":  "1886860",
-                            "descricao":  "Ato Oficial: Resolução 17",
+                            "protocolo":  "2217166",
+                            "idDocumento":  "2463889",
+                            "descricao":  "Ato Normativo: Instrução Normativa 8",
                             "veiculo":  "Boletim de Serviço Eletrônico",
-                            "data":  "17/12/2024",
-                            "unidade":  "Conselho de Assuntos Comunitários e Estudantis",
-                            "sigla":  "CoACE",
-                            "resumo":  "Estabelece a não obrigatoriedade de inscrição em atividades curriculares para a manutenção de bolsas e auxílios, diante da não obrigatoriedade do ENPE (Ensino Não Presencial Emergencial)",
-                            "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=1886860\u0026id_orgao_publicacao=0",
+                            "data":  "27/04/2026",
+                            "unidade":  "Pró-Reitoria de Pós-Graduação",
+                            "sigla":  "ProPG",
+                            "resumo":  "Dispõe sobre os critérios para distribuição de cotas de bolsas institucionais e oriundas de Agências de Fomento aos Programas de Pós-Graduação da Universidade Federal de São Carlos",
+                            "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=2463889\u0026id_orgao_publicacao=0",
                             "origem":  [
-                                           "Resumo: bolsas"
+                                           "Resumo: bolsas",
+                                           "Resumo: fomento"
                                        ]
                         },
                         {
@@ -10413,6 +10428,20 @@
                             "sigla":  "CoEx",
                             "resumo":  "Aprova o resultado final da análise de mérito e a concessão de recursos financeiros e de bolsas de extensão às propostas submetidas no âmbito dos Editais ProEx 2024, apreciados pelo Conselho de Extensão em sua 150ª Reunião Ordinária, de 22/02/2024.",
                             "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=1534812\u0026id_orgao_publicacao=0",
+                            "origem":  [
+                                           "Resumo: bolsas"
+                                       ]
+                        },
+                        {
+                            "protocolo":  "1691977",
+                            "idDocumento":  "1886860",
+                            "descricao":  "Ato Oficial: Resolução 17",
+                            "veiculo":  "Boletim de Serviço Eletrônico",
+                            "data":  "17/12/2024",
+                            "unidade":  "Conselho de Assuntos Comunitários e Estudantis",
+                            "sigla":  "CoACE",
+                            "resumo":  "Estabelece a não obrigatoriedade de inscrição em atividades curriculares para a manutenção de bolsas e auxílios, diante da não obrigatoriedade do ENPE (Ensino Não Presencial Emergencial)",
+                            "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=1886860\u0026id_orgao_publicacao=0",
                             "origem":  [
                                            "Resumo: bolsas"
                                        ]

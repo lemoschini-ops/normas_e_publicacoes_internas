@@ -1,5 +1,5 @@
 ﻿{
-    "executadoEm":  "2026-10-16T14:59:31",
+    "executadoEm":  "2026-10-16T21:57:37",
     "fontes":  [
                    {
                        "arquivo":  "normas.json",
@@ -11,7 +11,7 @@
                    {
                        "arquivo":  "publicacoes_sei.json",
                        "antes":  975,
-                       "depois":  975,
+                       "depois":  977,
                        "status":  "ok",
                        "erro":  ""
                    }
