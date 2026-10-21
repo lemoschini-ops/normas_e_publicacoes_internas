@@ -1,6 +1,6 @@
 ﻿{
     "fonte":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_pesquisar\u0026acao_origem=publicacao_pesquisar\u0026id_orgao_publicacao=0",
-    "coletadoEm":  "2026-10-20",
+    "coletadoEm":  "2026-10-21",
     "criterios":  [
                       "Unidade ProPq",
                       "Unidade CoPq",
@@ -8432,6 +8432,20 @@
                             "sigla":  "CoAd",
                             "resumo":  "Aprova adequação orçamentária do Projeto \"Quem somos, o que queremos? Mulheres, pesquisa e sociedade\"",
                             "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=2735316\u0026id_orgao_publicacao=0",
+                            "origem":  [
+                                           "Resumo: pesquisa"
+                                       ]
+                        },
+                        {
+                            "protocolo":  "2465056",
+                            "idDocumento":  "2736819",
+                            "descricao":  "Edital 13",
+                            "veiculo":  "Boletim de Serviço Eletrônico",
+                            "data":  "21/10/2026",
+                            "unidade":  "Conselho Universitário",
+                            "sigla":  "ConsUni",
+                            "resumo":  "Edital de eleição para escolha de representantes junto ao Conselho de Pesquisa-2026",
+                            "link":  "https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar\u0026id_documento=2736819\u0026id_orgao_publicacao=0",
                             "origem":  [
                                            "Resumo: pesquisa"
                                        ]
