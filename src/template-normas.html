@@ -110,6 +110,21 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .caixa .limpa{position:absolute;right:.4rem;top:50%;transform:translateY(-50%);background:none;border:0;border-radius:8px;padding:.3rem .55rem;color:var(--muted);font-size:1rem}
 .caixa .limpa:hover{background:var(--surface-2);color:var(--heading)}
 .dica{color:var(--muted);font-size:.82rem;margin:.3rem 0 0}
+.eixos-box{margin-top:1rem}
+.eixos-head{display:flex;flex-wrap:wrap;gap:.3rem 1rem;align-items:baseline;margin-bottom:.5rem}
+.eixos-head .rot{font-weight:700;color:var(--heading);font-size:.95rem}
+.eixos-head a{font-size:.82rem}
+.eixos{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));gap:.4rem}
+.eixos button{display:flex;justify-content:space-between;align-items:center;gap:.5rem;text-align:left;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--blue-2);color:var(--heading);border-radius:8px;padding:.4rem .7rem;font-size:.86rem;font-weight:600;line-height:1.25}
+.eixos button:hover{border-color:var(--accent);background:var(--accent-soft)}
+.eixos button i{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums;font-size:.8rem}
+.eixos button.geral{border-left-color:var(--yellow);grid-column:1/-1;font-size:.92rem}
+.eixos button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.eixos button[aria-pressed="true"] i{color:#fff}
+:root[data-theme="dark"] .eixos button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-text)}
+:root[data-theme="dark"] .eixos button[aria-pressed="true"] i{color:var(--accent-text)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .eixos button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-text)}
+  :root:not([data-theme="light"]) .eixos button[aria-pressed="true"] i{color:var(--accent-text)}}
 .atalhos{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin-top:1rem}
 .atalhos .rot{font-weight:700;color:var(--heading);font-size:.9rem;margin-right:.2rem}
 .atalhos button{background:var(--surface);border:1px solid var(--border);color:var(--heading);border-radius:999px;padding:.3rem .9rem;font-size:.88rem;font-weight:600}
@@ -122,6 +137,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .periodo{border:0;padding:0;margin:0;min-width:0}
 .periodo legend{font-size:.85rem;color:var(--heading);font-weight:600;padding:0;margin-bottom:.25rem}
 .periodo .duo{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+@media (min-width:900px){#filtrosS .periodo{grid-column:span 2}}
+.periodo .duo input{min-width:0}
 .periodo .duo label{font-weight:400;color:var(--muted);font-size:.78rem}
 .checks{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:.9rem}
 .checks label{display:inline-flex;align-items:center;gap:.45rem;font-size:.9rem;cursor:pointer}
@@ -142,6 +159,21 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .chip span{font-size:.75rem}
 .chip.kw{background:var(--blue);color:#fff}
 :root[data-theme="dark"] .chip.kw{background:var(--accent);color:var(--accent-text)}
+.destaque{margin-top:1rem;display:grid;grid-template-columns:minmax(min(100%,16rem),auto) 1fr;gap:.8rem 1.2rem;align-items:center;
+  padding:.9rem 1rem;border-radius:12px;background:var(--surface-2);border:1px solid var(--border)}
+@media (max-width:760px){.destaque{grid-template-columns:1fr}}
+.edital-btn{display:block;gap:.1rem;background:var(--yellow);color:#2b2005;border:2px solid #c99700;border-radius:12px;padding:.65rem 1rem;font-weight:800;font-size:1.02rem;text-align:left;box-shadow:0 4px 10px rgba(242,183,5,.3)}
+.edital-btn small{display:block;font-weight:600;font-size:.8rem}
+.edital-btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.edital-btn[aria-pressed="true"]{background:#2b2005;color:var(--yellow);border-color:#2b2005}
+.nomeacoes{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
+.nomeacoes .rot{font-weight:700;color:var(--heading);font-size:.9rem;margin-right:.2rem}
+.nomeacoes button{background:var(--surface);border:1px solid var(--border);color:var(--heading);border-radius:999px;padding:.3rem .9rem;font-size:.88rem;font-weight:600}
+.nomeacoes button:hover{border-color:var(--accent);background:var(--accent-soft)}
+.nomeacoes button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.nomeacoes button i,.edital-btn i{font-style:normal;opacity:.75;font-size:.8em;margin-left:.3rem}
+:root[data-theme="dark"] .nomeacoes button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-text)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nomeacoes button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-text)}}
 .resultado{margin:.8rem 0 0;font-size:1rem;color:var(--heading)}
 .resultado b{font-size:1.25rem}
 
@@ -231,7 +263,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
   <nav class="navbar" aria-label="Seções do painel">
     <div class="abas" role="tablist" aria-label="Seções do painel">
       <button id="tabBtnNormas" class="nav-btn" role="tab" aria-controls="tabNormas" aria-selected="true">Atos normativos <span class="badge" id="badgeN"></span></button>
-      <button id="tabBtnSei" class="nav-btn" role="tab" aria-controls="tabSei" aria-selected="false" tabindex="-1">Publicações no SEI <span class="badge" id="badgeS"></span></button>
+      <button id="tabBtnSei" class="nav-btn" role="tab" aria-controls="tabSei" aria-selected="false" tabindex="-1">Boletim Interno do SEI <span class="badge" id="badgeS"></span></button>
       <button id="tabBtnInd" class="nav-btn" role="tab" aria-controls="tabInd" aria-selected="false" tabindex="-1">Indicadores e gráficos</button>
     </div>
   </nav>
@@ -239,8 +271,8 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
 <div class="wrap">
   <section class="hero" aria-labelledby="heroH1">
     <div class="hero-text">
-      <span class="tag-hero" id="heroTag">UFSCar · Pesquisa e Inovação</span>
-      <h1 id="heroH1">Atos normativos vigentes — acompanhamento de pesquisa</h1>
+      <span class="tag-hero" id="heroTag">UFSCar · Consulta geral e por eixo temático</span>
+      <h1 id="heroH1">Atos normativos vigentes da UFSCar</h1>
       <p id="fonte"></p>
     </div>
     <div class="hero-stat" aria-hidden="true"><b id="heroNum">—</b><span id="heroLbl">atos na seleção</span></div>
@@ -266,9 +298,14 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
       <p class="dica" id="qDica">Procura na unidade, tipo, número, ano e ementa. Com várias palavras, mostra os atos que têm todas elas.</p>
     </div>
     <div id="fN-corpo" class="corpo-f">
+      <div class="eixos-box">
+        <div class="eixos-head"><span class="rot" id="eixosRot">Consulta por eixo temático</span>
+          <a href="https://www.ufscar.br/atos-normativos-da-ufscar#consulta-por-eixo-tematico" target="_blank" rel="noopener">mesmos eixos da página oficial<span class="sr"> (abre em nova aba)</span> ↗</a></div>
+        <div class="eixos" id="eixosN" role="group" aria-labelledby="eixosRot"></div>
+      </div>
       <div class="atalhos" id="quickN" role="group" aria-label="Atalhos de seleção">
         <span class="rot" aria-hidden="true">Atalhos:</span>
-        <button type="button" data-a="pq">Pesquisa e Inovação</button><button type="button" data-a="todos">Todos os eixos</button><button type="button" data-a="rec">Últimos 2 anos</button>
+        <button type="button" data-a="rec">Últimos 2 anos</button>
         <button type="button" data-a="old">Mais de 10 anos</button><button type="button" data-a="etica">Ética e integridade</button><button type="button" data-a="inov">Inovação e PI</button>
       </div>
       <div class="filters">
@@ -312,22 +349,32 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
   </section>
 </section>
 
-<!-- ===== Aba 2: Publicações no SEI ===== -->
+<!-- ===== Aba 2: Boletim Interno do SEI ===== -->
 <section id="tabSei" class="painel" role="tabpanel" aria-labelledby="tabBtnSei" hidden>
   <div id="slotS">
   <section class="card filtros" id="filtrosS" aria-labelledby="fS-t">
     <div class="f-head">
-      <h2 id="fS-t">Buscar e filtrar publicações do SEI</h2>
+      <h2 id="fS-t">Buscar e filtrar no Boletim Interno do SEI</h2>
       <button type="button" class="btn link" id="togS" aria-expanded="true" aria-controls="fS-corpo">Ocultar opções de filtro</button>
     </div>
     <div class="busca">
       <label for="sQ">O que você procura?</label>
       <div class="caixa">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="sQ" type="search" placeholder="Ex.: bolsa, pós-doutorado, comitê de ética…" aria-describedby="sQDica">
+        <input id="sQ" type="search" placeholder="Ex.: edital PPG, coordenador, chefe de departamento, bolsa…" aria-describedby="sQDica">
         <button type="button" class="limpa" id="sQLimpa" aria-label="Apagar a busca" hidden>✕</button>
       </div>
       <p class="dica" id="sQDica">Procura na descrição do ato, unidade, protocolo e resumo, com ou sem acentos. Com várias palavras, mostra as publicações que têm todas elas.</p>
+    </div>
+    <div class="destaque">
+      <button type="button" class="edital-btn" id="btnEdital" data-as="Edital de pós-graduação" aria-pressed="false">Editais de Pós-Graduação<small>seleção, bolsas, resultados e retificações</small></button>
+      <div class="nomeacoes" id="nomeacoes" role="group" aria-label="Nomeações e designações para cargos">
+        <span class="rot" aria-hidden="true">Nomeações:</span>
+        <button type="button" data-as="Nomeação — coordenação de curso de graduação">Coordenação de curso de graduação</button>
+        <button type="button" data-as="Nomeação — coordenação de programa de pós-graduação">Coordenação de programa de pós-graduação</button>
+        <button type="button" data-as="Nomeação — chefia de departamento">Chefia de departamento</button>
+        <button type="button" data-as="Nomeação — outros cargos administrativos">Outros cargos administrativos</button>
+      </div>
     </div>
     <div id="fS-corpo" class="corpo-f">
       <div class="atalhos" id="quickS" role="group" aria-label="Atalhos de seleção">
@@ -336,6 +383,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
         <button type="button" data-a="bolsa">Bolsas</button><button type="button" data-a="pos">Pós-doutorado</button><button type="button" data-a="etica">Ética</button><button type="button" data-a="norm">Atos normativos</button>
       </div>
       <div class="filters">
+        <label>Assunto (nomeações e editais)<select id="sAssunto"></select></label>
         <label>Categoria do ato<select id="sCat"></select></label>
         <label>Tipo de ato<select id="sTipo"></select></label>
         <label>Unidade emissora<select id="sUni"></select></label>
@@ -393,7 +441,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
     <span class="rot" id="indRot">Mostrar indicadores de:</span>
     <div class="seg" role="group" aria-labelledby="indRot">
       <button type="button" id="indBtnN" aria-pressed="true">Atos normativos</button>
-      <button type="button" id="indBtnS" aria-pressed="false">Publicações no SEI</button>
+      <button type="button" id="indBtnS" aria-pressed="false">Boletim Interno do SEI</button>
     </div>
     <span class="note" style="margin:0">Os números e gráficos seguem os filtros abaixo, os mesmos da lista. Clique numa barra para filtrar por ela.</span>
   </div>
@@ -424,6 +472,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
       <div class="card"><h3>Por ano</h3><div class="bars" id="sbAno"></div></div>
       <div class="card"><h3>Por unidade emissora (top 10)</h3><div class="bars" id="sbUni"></div></div>
       <div class="card"><h3>Por tipo de ato</h3><div class="bars" id="sbTipo"></div></div>
+      <div class="card"><h3>Nomeações e editais de pós-graduação</h3><div class="bars" id="sbAssunto"></div></div>
       <div class="card"><h3>Por categoria</h3><div class="bars" id="sbCat"></div></div>
       <div class="card"><h3>Por unidade de pesquisa (coleta)</h3><div class="bars" id="sbUniPq"></div></div>
       <div class="card"><h3>Por palavra da coleta (resumo contém)</h3><div class="bars" id="sbTermo"></div></div>
@@ -439,7 +488,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
 <footer>
   Fonte: página oficial dos Atos Normativos da UFSCar (consulta geral e eixos temáticos). Os temas de pesquisa são
   uma classificação automática por palavras da ementa — confira o ato no SEI antes de citar. O tamanho do texto fica salvo só neste navegador.
-  Aba SEI: publicações eletrônicas (Boletim de Serviço) coletadas por unidades de pesquisa e por palavras no resumo; não é o universo completo de publicações da UFSCar.
+  Aba Boletim Interno do SEI: publicações eletrônicas (Boletim de Serviço) coletadas por unidades de pesquisa e por palavras no resumo (pesquisa, cargos, pós-graduação e editais); não é o universo completo de publicações da UFSCar. Nomeações e editais são identificados automaticamente pelo texto do resumo.
 </footer>
 
 <script>
@@ -481,12 +530,12 @@ const PAGE = 25;
 const CNT = { n: normas.length, s: 0 };
 let VIEW = 'normas', IND = 'n';   // aba visível; conjunto mostrado em Indicadores
 
-/* atalhos: cada um é um conjunto de filtros; o botão fica marcado enquanto a seleção for exatamente aquela */
+/* atalhos: cada um liga alguns filtros sem mexer nos demais; o botão fica marcado enquanto esses filtros estiverem ligados */
 const igual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-const ativoPreset = (st, base, p) => Object.keys(base).every(k => igual(st[k], k in p ? p[k] : base[k]));
+const ativoPreset = (st, base, p) => Object.keys(p).length > 0 && Object.keys(p).every(k => igual(st[k], p[k]));
+const aplicaPreset = (st, base, p) => { if (ativoPreset(st, base, p)) Object.keys(p).forEach(k => st[k] = base[k]); else Object.assign(st, p); st.pg = 0; };
 const PRESETS_N = {
-  pq: () => ({ eixo: 'Pesquisa e Inovação' }), todos: () => ({}), rec: () => ({ de: ANO_REF - 2 }),
-  old: () => ({ old: true, eixo: 'Pesquisa e Inovação' }), etica: () => ({ tema: 'Ética e integridade' }), inov: () => ({ tema: 'Inovação e propriedade intelectual' }),
+  rec: () => ({ de: ANO_REF - 2 }), old: () => ({ old: true }), etica: () => ({ tema: 'Ética e integridade' }), inov: () => ({ tema: 'Inovação e propriedade intelectual' }),
 };
 
 const uniq = (arr) => [...new Set(arr)].filter(Boolean).sort((a, b) => a.localeCompare(b, 'pt-BR'));
@@ -494,6 +543,11 @@ function fillSelect(el, vals, todos) {
   el.innerHTML = `<option value="">${todos}</option>` + vals.map(v => `<option>${esc(v)}</option>`).join('');
 }
 fillSelect($('fEixo'), DATA.eixos.filter(e => normas.some(n => n.eixos.includes(e))), 'Todos os eixos');
+/* consulta por eixo temático: os mesmos eixos da página oficial, com a contagem total de cada um */
+const EIXOS = DATA.eixos.filter(e => normas.some(n => n.eixos.includes(e)));
+$('eixosN').innerHTML = `<button type="button" class="geral" data-e="">Consulta geral — todos os atos vigentes <i>${fmt(normas.length)}</i></button>` +
+  EIXOS.map(e => `<button type="button" data-e="${esc(e)}">${esc(e)} <i>${fmt(normas.filter(n => n.eixos.includes(e)).length)}</i></button>`).join('');
+$('eixosN').querySelectorAll('button').forEach(b => b.onclick = () => { const e = b.dataset.e; S.eixo = e && S.eixo === e ? '' : e; S.pg = 0; sync(); render(); });
 fillSelect($('fTema'), [...TEMAS.map(t => t[0]), 'Outros — Pesquisa e Inovação'], 'Todos os temas');
 fillSelect($('fTipo'), uniq(normas.map(n => n.tipo)), 'Todos os tipos');
 fillSelect($('fUni'), uniq(normas.flatMap(n => n.unidade.split(' / '))), 'Todas as unidades');
@@ -590,6 +644,7 @@ function render() {
   $('chips').querySelectorAll('.chip').forEach(c => c.onclick = () => {
     const k = c.dataset.k; if (k === 'ano') S.de = S.ate = null; else if (k === 'old') S.old = false; else S[k] = '';
     S.pg = 0; sync(); render(); });
+  $('eixosN').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', S.eixo === b.dataset.e));
   $('quickN').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', ativoPreset(S, BASE_N(), PRESETS_N[b.dataset.a]())));
   $('resN').innerHTML = `<b>${fmt(rows.length)}</b> ${rows.length === 1 ? 'ato encontrado' : 'atos encontrados'} de ${fmt(normas.length)}`;
   $('qLimpa').hidden = !S.q;
@@ -627,7 +682,7 @@ function chipsHtml(ch, vazio) {
 function saveHash() {
   const p = new URLSearchParams();
   [['q', S.q], ['eixo', S.eixo], ['tema', S.tema], ['tipo', S.tipo], ['uni', S.uni], ['de', S.de ?? ''], ['ate', S.ate ?? ''],
-   ['old', S.old ? 1 : ''], ['todos', [S.q, S.eixo, S.tema, S.tipo, S.uni, S.de ?? '', S.ate ?? '', S.old || ''].every(x => x === '') ? 1 : ''], ['v', VIEW === 'normas' ? '' : VIEW], ['d', VIEW === 'ind' && IND === 's' ? 's' : '']].forEach(([k, v]) => v !== '' && p.set(k, v));
+   ['old', S.old ? 1 : ''], ['v', VIEW === 'normas' ? '' : VIEW], ['d', VIEW === 'ind' && IND === 's' ? 's' : '']].forEach(([k, v]) => v !== '' && p.set(k, v));
   try { history.replaceState(null, '', p.toString() ? '#' + p : location.pathname + location.search); } catch (e) {}
 }
 function loadHash() {
@@ -635,7 +690,6 @@ function loadHash() {
   S.q = p.get('q') || ''; S.eixo = p.get('eixo') || ''; S.tema = p.get('tema') || ''; S.tipo = p.get('tipo') || ''; S.uni = p.get('uni') || '';
   S.de = p.get('de') ? +p.get('de') : null; S.ate = p.get('ate') ? +p.get('ate') : null; S.old = !!p.get('old');
   VIEW = ['sei', 'ind'].includes(p.get('v')) ? p.get('v') : 'normas'; IND = p.get('d') === 's' || VIEW === 'sei' ? 's' : 'n';
-  if (![...p.keys()].some(k => k !== 'v' && k !== 'd')) S.eixo = 'Pesquisa e Inovação';   // visão inicial: pesquisa
 }
 function sync() {
   $('q').value = S.q; $('fEixo').value = S.eixo; $('fTema').value = S.tema; $('fTipo').value = S.tipo; $('fUni').value = S.uni;
@@ -665,7 +719,7 @@ $('linkN').onclick = async () => {
 };
 window.addEventListener('hashchange', () => { loadHash(); sync(); aba(VIEW); });
 
-/* ===== Publicações no SEI ===== */
+/* ===== Boletim Interno do SEI ===== */
 const SEI = /*SEI*/{};
 const pubs = SEI.publicacoes || [];
 const FONTE_S = 'Boletim de Serviço Eletrônico, coletado em ' + (SEI.coletadoEm || '—') + ' de sei.ufscar.br (busca pública de Publicações Eletrônicas).';
@@ -676,6 +730,19 @@ const STOP = new Set(('de da do das dos e em a o as os para por com no na nos na
   'concessao conceder aprova aprovar designa designar dispoe institui nomeia altera torna autoriza resolve resolucao portaria ato ufscar ' +
   'universidade federal carlos sao anexo processo sei documento mes maio junho julho agosto setembro outubro janeiro fevereiro marco abril novembro dezembro').split(' '));
 
+/* Assuntos do Boletim: nomeações para cargos e editais de pós-graduação (classificação pelo texto, sem acentos) */
+const NOMEIA = /\b(nomeia|nomear|nomeacao|designa|designar|designacao|reconduz|reconduzir|reconducao)\b/;
+const POS = /pos[- ]?graduacao|\bppg|propg|mestrado|doutorado|stricto/;
+const ASSUNTOS = [
+  ['Edital de pós-graduação', t => /edital|processo seletivo|selecao|chamada/.test(t) && POS.test(t)],
+  ['Nomeação — coordenação de curso de graduação', t => NOMEIA.test(t) && /coordenador|coordenacao/.test(t) && /\bcurso/.test(t) && !POS.test(t)],
+  ['Nomeação — coordenação de programa de pós-graduação', t => NOMEIA.test(t) && /coordenador|coordenacao/.test(t) && POS.test(t)],
+  ['Nomeação — chefia de departamento', t => NOMEIA.test(t) && /chefe|chefia/.test(t) && /departamento/.test(t)],
+];
+const OUTROS_CARGOS = /chefe|chefia|diretor|coordenador|secretari|pro-reitor|assessor|ouvidor|prefeit|superintendente|funcao|cargo|presidente/;
+ASSUNTOS.push(['Nomeação — outros cargos administrativos', (t, ja) => NOMEIA.test(t) && !ja.some(a => a.startsWith('Nomeação')) && OUTROS_CARGOS.test(t)]);
+function assuntosDe(t) { const r = []; ASSUNTOS.forEach(([k, f]) => f(t, r) && r.push(k)); return r; }
+
 pubs.forEach(p => {
   const m = p.descricao.match(/^(?:(.*?):\s*)?(.*?)((?:\s+[\d./-]+)*)$/);
   if (m && !m[1]) m[1] = 'Outros';
@@ -685,9 +752,10 @@ pubs.forEach(p => {
   p.termos = p.origem.filter(o => o.startsWith('Resumo:')).map(o => o.slice(7).trim());
   p.nResumo = fold(p.resumo);
   p.nTudo = fold(p.descricao + ' ' + p.unidade + ' ' + p.sigla + ' ' + p.resumo + ' ' + p.protocolo);
+  p.assuntos = assuntosDe(fold(p.descricao + ' ' + p.resumo));
   p.palavras = [...new Set(p.nResumo.split(/[^a-z0-9]+/).filter(w => w.length > 3 && !STOP.has(w) && !/^\d+$/.test(w)))];
 });
-const BASE_S = () => ({ q: '', kws: [], uniPq: '', termo: '', cat: '', tipo: '', uni: '', de: '', ate: '', mes: '', ano: '' });
+const BASE_S = () => ({ q: '', kws: [], uniPq: '', termo: '', assunto: '', cat: '', tipo: '', uni: '', de: '', ate: '', mes: '', ano: '' });
 const SS = Object.assign(BASE_S(), { modo: 'or', esc: 'resumo', sort: 'data', desc: true, pg: 0 });
 const isoDia = d => d.toISOString().slice(0, 10);
 const PRESETS_S = {
@@ -698,6 +766,14 @@ const PRESETS_S = {
 const nome = p => p.sigla + ' — ' + p.unidade;
 fillSelect($('sUniPq'), uniq(pubs.flatMap(p => p.uniPq)), 'Todas / qualquer');
 fillSelect($('sTermo'), uniq(pubs.flatMap(p => p.termos)), 'Todas / qualquer');
+fillSelect($('sAssunto'), ASSUNTOS.map(a => a[0]), 'Todos os assuntos');
+/* quantas publicações há em cada assunto no total coletado */
+document.querySelectorAll('#filtrosS [data-as]').forEach(b => {
+  const n = pubs.filter(p => p.assuntos.includes(b.dataset.as)).length, i = `<i>${fmt(n)}</i>`;
+  const s = b.querySelector('small'); s ? s.insertAdjacentHTML('beforebegin', i) : b.insertAdjacentHTML('beforeend', i);
+  b.setAttribute('aria-label', b.firstChild.textContent.trim() + ` (${fmt(n)} publicações no total coletado)`);
+  b.onclick = () => { SS.assunto = SS.assunto === b.dataset.as ? '' : b.dataset.as; SS.pg = 0; sSync(); sRender(); };
+});
 fillSelect($('sCat'), uniq(pubs.map(p => p.cat)), 'Todas as categorias');
 fillSelect($('sTipo'), uniq(pubs.map(p => p.tipoAto)), 'Todos os tipos');
 fillSelect($('sUni'), uniq(pubs.map(nome)), 'Todas as unidades');
@@ -716,7 +792,7 @@ function sFilt() {
   return pubs.filter(p =>
     (!q || q.split(/\s+/).every(w => p.nTudo.includes(w))) && kwOk(p) &&
     (!SS.uniPq || p.uniPq.includes(SS.uniPq)) && (!SS.termo || p.termos.includes(SS.termo)) &&
-    (!SS.cat || p.cat === SS.cat) && (!SS.tipo || p.tipoAto === SS.tipo) && (!SS.uni || nome(p) === SS.uni) &&
+    (!SS.assunto || p.assuntos.includes(SS.assunto)) && (!SS.cat || p.cat === SS.cat) && (!SS.tipo || p.tipoAto === SS.tipo) && (!SS.uni || nome(p) === SS.uni) &&
     (!SS.de || p.iso >= SS.de) && (!SS.ate || p.iso <= SS.ate) && (!SS.mes || p.mes === SS.mes) && (!SS.ano || p.ano === SS.ano));
 }
 /* gráfico de barras: usa SEMPRE a seleção atual e informa a base e a soma */
@@ -775,6 +851,7 @@ function sRender() {
   sBars($('sbAno'), rows, p => [p.ano], 'ano', 12);
   sBars($('sbUni'), rows, p => [nome(p)], 'uni', 10);
   sBars($('sbTipo'), rows, p => [p.tipoAto], 'tipo');
+  sBars($('sbAssunto'), rows, p => p.assuntos.length ? p.assuntos : ['(outros assuntos)'], 'assunto');
   sBars($('sbCat'), rows, p => [p.cat], 'cat');
   sBars($('sbUniPq'), rows, p => p.uniPq.length ? p.uniPq : ['(não veio de unidade de pesquisa)'], 'uniPq', 10);
   sBars($('sbTermo'), rows, p => p.termos.length ? p.termos : ['(não veio de palavra)'], 'termo', 15);
@@ -800,7 +877,7 @@ function sRender() {
   });
 
   // filtros aplicados
-  const rot = { uniPq: 'Unidade de pesquisa', termo: 'Palavra da coleta', cat: 'Categoria', tipo: 'Tipo', uni: 'Emissora', ano: 'Ano' };
+  const rot = { assunto: 'Assunto', uniPq: 'Unidade de pesquisa', termo: 'Palavra da coleta', cat: 'Categoria', tipo: 'Tipo', uni: 'Emissora', ano: 'Ano' };
   const ch = [];
   if (SS.q) ch.push(['q', 'Busca: ' + SS.q]);
   SS.kws.forEach((k, i) => ch.push(['kw' + i, 'Palavra-chave: ' + k, 'kw']));
@@ -813,6 +890,7 @@ function sRender() {
   $('sChips').querySelectorAll('.chip').forEach(c => c.onclick = () => {
     const k = c.dataset.k; if (k.startsWith('kw')) SS.kws.splice(+k.slice(2), 1); else SS[k] = '';
     SS.pg = 0; sSync(); sRender(); });
+  document.querySelectorAll('#filtrosS [data-as]').forEach(b => b.setAttribute('aria-pressed', SS.assunto === b.dataset.as));
   $('quickS').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', ativoPreset(SS, BASE_S(), PRESETS_S[b.dataset.a]())));
   $('resS').innerHTML = `<b>${fmt(N)}</b> ${N === 1 ? 'publicação encontrada' : 'publicações encontradas'} de ${fmt(pubs.length)}`;
   $('sQLimpa').hidden = !SS.q;
@@ -845,11 +923,11 @@ function hl(texto) {
   return out + (abre ? '</mark>' : '');
 }
 function sSync() {
-  $('sQ').value = SS.q; $('sUniPq').value = SS.uniPq; $('sTermo').value = SS.termo; $('sCat').value = SS.cat; $('sTipo').value = SS.tipo;
+  $('sQ').value = SS.q; $('sUniPq').value = SS.uniPq; $('sTermo').value = SS.termo; $('sAssunto').value = SS.assunto; $('sCat').value = SS.cat; $('sTipo').value = SS.tipo;
   $('sUni').value = SS.uni; $('sDe').value = SS.de; $('sAte').value = SS.ate; $('kwModo').value = SS.modo; $('kwEsc').value = SS.esc;
   if (SS.kws.length || SS.uniPq || SS.termo) $('sAdv').open = true;
 }
-[['sQ', 'q', 'input'], ['sUniPq', 'uniPq', 'change'], ['sTermo', 'termo', 'change'], ['sCat', 'cat', 'change'], ['sTipo', 'tipo', 'change'],
+[['sQ', 'q', 'input'], ['sUniPq', 'uniPq', 'change'], ['sTermo', 'termo', 'change'], ['sAssunto', 'assunto', 'change'], ['sCat', 'cat', 'change'], ['sTipo', 'tipo', 'change'],
  ['sUni', 'uni', 'change'], ['sDe', 'de', 'change'], ['sAte', 'ate', 'change'], ['kwModo', 'modo', 'change'], ['kwEsc', 'esc', 'change']]
   .forEach(([id, k, ev]) => $(id).addEventListener(ev, e => { SS[k] = e.target.value; SS.pg = 0; sRender(); }));
 function addKw(txt) {
@@ -871,9 +949,9 @@ $('sCsv').onclick = () => baixaCsv(['Data;Protocolo;Ato;Unidade;Sigla;Resumo;Uni
 const ABAS = [['normas', 'tabBtnNormas', 'tabNormas'], ['sei', 'tabBtnSei', 'tabSei'], ['ind', 'tabBtnInd', 'tabInd']];
 function hero() {
   const sei = VIEW === 'sei' || (VIEW === 'ind' && IND === 's'), ind = VIEW === 'ind';
-  $('heroTag').textContent = ind ? 'Indicadores e gráficos' : sei ? 'SEI · Publicações eletrônicas' : 'UFSCar · Pesquisa e Inovação';
-  $('heroH1').textContent = sei ? (ind ? 'Indicadores — publicações no SEI' : 'Publicações no SEI relacionadas à pesquisa')
-    : (ind ? 'Indicadores — atos normativos vigentes' : 'Atos normativos vigentes — acompanhamento de pesquisa');
+  $('heroTag').textContent = ind ? 'Indicadores e gráficos' : sei ? 'SEI · Boletim Interno' : 'UFSCar · Consulta geral e por eixo temático';
+  $('heroH1').textContent = sei ? (ind ? 'Indicadores — Boletim Interno do SEI' : 'Boletim Interno do SEI: pesquisa, pós-graduação e cargos')
+    : (ind ? 'Indicadores — atos normativos vigentes' : 'Atos normativos vigentes da UFSCar');
   $('fonte').innerHTML = sei ? FONTE_S : FONTE_N;
   $('heroNum').textContent = fmt(sei ? CNT.s : CNT.n);
   $('heroLbl').textContent = sei ? `publicações na seleção (de ${fmt(pubs.length)})` : `atos na seleção (de ${fmt(normas.length)})`;
@@ -930,14 +1008,12 @@ $('tema').onclick = () => {
 };
 $('imprimir').onclick = () => print();
 
-/* atalhos: clicar aplica a seleção; clicar de novo no atalho ativo volta a mostrar tudo */
+/* atalhos: clicar liga; clicar de novo no atalho ativo desliga só os filtros dele */
 $('quickN').querySelectorAll('button').forEach(b => b.onclick = () => {
-  const p = PRESETS_N[b.dataset.a](), ativo = ativoPreset(S, BASE_N(), p);
-  Object.assign(S, BASE_N(), ativo ? {} : p, { pg: 0 }); sync(); render();
+  aplicaPreset(S, BASE_N(), PRESETS_N[b.dataset.a]()); sync(); render();
 });
 $('quickS').querySelectorAll('button').forEach(b => b.onclick = () => {
-  const p = PRESETS_S[b.dataset.a](), ativo = ativoPreset(SS, BASE_S(), p);
-  Object.assign(SS, BASE_S(), ativo ? {} : p, { pg: 0 }); sSync(); sRender();
+  aplicaPreset(SS, BASE_S(), PRESETS_S[b.dataset.a]()); sSync(); sRender();
 });
 
 loadHash(); sync(); sSync(); aba(VIEW);
