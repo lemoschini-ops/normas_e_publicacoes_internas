@@ -203,8 +203,6 @@ table.heat td.hc[data-u]:hover{outline:2px solid var(--yellow)}
 .tag.u{background:var(--accent-soft);color:var(--accent)}
 .age-old{color:var(--warn);font-weight:700}
 mark{background:var(--hl);color:#000;border-radius:3px;padding:0 1px}
-.star{font-size:1.15rem;color:var(--muted);background:none;border:0;padding:0 .2rem;border-radius:6px}
-.star[aria-pressed="true"]{color:#c99700}
 .pg{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:center;margin-top:.9rem;color:var(--heading)}
 .empty{padding:1.5rem;text-align:center;color:var(--muted)}
 
@@ -283,7 +281,6 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
           <label>até<input id="aAte" type="number" min="1960" max="2100" inputmode="numeric"></label></div></fieldset>
       </div>
       <div class="checks">
-        <label><input type="checkbox" id="fStar"> Só os que estou acompanhando (★)</label>
         <label><input type="checkbox" id="fOld"> Só os com mais de 10 anos</label>
       </div>
       <p class="dica" id="temaDica">O tema de pesquisa é uma classificação automática pelas palavras da ementa.</p>
@@ -307,7 +304,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
     <div class="tablewrap"><table>
       <caption class="sr">Atos normativos da seleção; os botões no cabeçalho ordenam a tabela</caption>
       <thead><tr>
-        <th data-k="star"><button type="button">★<span class="sr"> acompanhamento</span></button></th><th data-k="unidade"><button type="button">Unidade</button></th>
+        <th data-k="unidade"><button type="button">Unidade</button></th>
         <th data-k="tipo"><button type="button">Tipo</button></th><th data-k="numero"><button type="button">Número</button></th>
         <th data-k="ano"><button type="button">Ano</button></th><th data-k="ementa"><button type="button">Ementa</button></th><th>Temas / Eixos</th><th>Link</th></tr></thead>
       <tbody id="tb"></tbody></table></div>
@@ -441,7 +438,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
 </main>
 <footer>
   Fonte: página oficial dos Atos Normativos da UFSCar (consulta geral e eixos temáticos). Os temas de pesquisa são
-  uma classificação automática por palavras da ementa — confira o ato no SEI antes de citar. A marcação ★ e o tamanho do texto ficam salvos só neste navegador.
+  uma classificação automática por palavras da ementa — confira o ato no SEI antes de citar. O tamanho do texto fica salvo só neste navegador.
   Aba SEI: publicações eletrônicas (Boletim de Serviço) coletadas por unidades de pesquisa e por palavras no resumo; não é o universo completo de publicações da UFSCar.
 </footer>
 
@@ -6242,15 +6239,10 @@ normas.forEach((n, i) => {
   n.busca = (n.unidade + ' ' + n.tipo + ' ' + n.numero + ' ' + n.ano + ' ' + n.ementa).toLowerCase();
 });
 
-/* Acompanhamento ★ (localStorage com tolerância a falha) */
-let favs = new Set();
-try { favs = new Set(JSON.parse(localStorage.getItem('normasFavs') || '[]')); } catch (e) {}
-const salvaFavs = () => { try { localStorage.setItem('normasFavs', JSON.stringify([...favs])); } catch (e) {} };
-
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const fmt = n => n.toLocaleString('pt-BR');
-const BASE_N = () => ({ q: '', eixo: '', tema: '', tipo: '', uni: '', de: null, ate: null, star: false, old: false });
+const BASE_N = () => ({ q: '', eixo: '', tema: '', tipo: '', uni: '', de: null, ate: null, old: false });
 const S = Object.assign(BASE_N(), { sort: 'ano', desc: true, pg: 0 });
 const PAGE = 25;
 const CNT = { n: normas.length, s: 0 };
@@ -6283,7 +6275,7 @@ function filtrados(ignorar) {
     (ignorar === 'tipo' || !S.tipo || n.tipo === S.tipo) &&
     (ignorar === 'uni' || !S.uni || n.unidade.split(' / ').includes(S.uni)) &&
     (S.de == null || n.anoN >= S.de) && (S.ate == null || n.anoN <= S.ate) &&
-    (!S.star || favs.has(n.id)) && (!S.old || (n.idade != null && n.idade > 10)));
+    (!S.old || (n.idade != null && n.idade > 10)));
 }
 const count = (arr, f) => { const m = new Map(); arr.forEach(n => (f(n)).forEach(k => m.set(k, (m.get(k) || 0) + 1))); return [...m].sort((a, b) => b[1] - a[1]); };
 
@@ -6326,7 +6318,6 @@ function render() {
     [fmt(new Set(rows.flatMap(n => n.unidade.split(' / '))).size), 'unidades emissoras'],
     [tipoLider ? tipoLider[0] : '—', 'tipo mais frequente' + (tipoLider ? ` (${tipoLider[1]} atos, ${Math.round(tipoLider[1] / rows.length * 100)}%)` : '')],
     [rows.length ? Math.round(rows.filter(n => n.eixos.length > 1).length / rows.length * 100) + '%' : '—', 'atos em mais de um eixo temático'],
-    [fmt(rows.filter(n => favs.has(n.id)).length), 'em acompanhamento ★'],
   ].map(([b, s]) => `<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join('');
 
   // linha do tempo
@@ -6360,11 +6351,11 @@ function render() {
   if (S.q) ch.push(['q', 'Busca: ' + S.q]); if (S.eixo) ch.push(['eixo', 'Eixo: ' + S.eixo]); if (S.tema) ch.push(['tema', 'Tema: ' + S.tema]);
   if (S.tipo) ch.push(['tipo', 'Tipo: ' + S.tipo]); if (S.uni) ch.push(['uni', 'Unidade: ' + S.uni]);
   if (S.de != null || S.ate != null) ch.push(['ano', S.de === S.ate ? `Ano ${S.de}` : `Ano ${S.de ?? '…'}–${S.ate ?? '…'}`]);
-  if (S.star) ch.push(['star', 'Em acompanhamento ★']); if (S.old) ch.push(['old', 'Mais de 10 anos']);
+  if (S.old) ch.push(['old', 'Mais de 10 anos']);
   $('chips').innerHTML = chipsHtml(ch, 'nenhum — mostrando todos os atos');
   $('limpar').hidden = !ch.length;
   $('chips').querySelectorAll('.chip').forEach(c => c.onclick = () => {
-    const k = c.dataset.k; if (k === 'ano') S.de = S.ate = null; else if (k === 'star' || k === 'old') S[k] = false; else S[k] = '';
+    const k = c.dataset.k; if (k === 'ano') S.de = S.ate = null; else if (k === 'old') S.old = false; else S[k] = '';
     S.pg = 0; sync(); render(); });
   $('quickN').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', ativoPreset(S, BASE_N(), PRESETS_N[b.dataset.a]())));
   $('resN').innerHTML = `<b>${fmt(rows.length)}</b> ${rows.length === 1 ? 'ato encontrado' : 'atos encontrados'} de ${fmt(normas.length)}`;
@@ -6374,8 +6365,7 @@ function render() {
   const dir = S.desc ? -1 : 1;
   rows.sort((a, b) => {
     let x, y;
-    if (S.sort === 'star') { x = favs.has(a.id) ? 1 : 0; y = favs.has(b.id) ? 1 : 0; }
-    else if (S.sort === 'ano') { x = a.anoN * 100000 + a.numN; y = b.anoN * 100000 + b.numN; }
+    if (S.sort === 'ano') { x = a.anoN * 100000 + a.numN; y = b.anoN * 100000 + b.numN; }
     else if (S.sort === 'numero') { x = a.numN; y = b.numN; }
     else { return dir * String(a[S.sort]).localeCompare(String(b[S.sort]), 'pt-BR'); }
     return dir * (x - y);
@@ -6384,15 +6374,12 @@ function render() {
   const vis = rows.slice(S.pg * PAGE, S.pg * PAGE + PAGE);
   $('cont').textContent = `(${fmt(rows.length)})`;
   $('tb').innerHTML = vis.length ? vis.map(n => `<tr>
-    <td><button type="button" class="star" data-id="${esc(n.id)}" aria-pressed="${favs.has(n.id)}" aria-label="Acompanhar ${esc(n.tipo + ' ' + n.numero + '/' + n.ano)}" title="Marcar para acompanhar">${favs.has(n.id) ? '★' : '☆'}</button></td>
     <td>${esc(n.unidade)}</td><td>${esc(n.tipo)}</td><td>${esc(n.numero)}</td>
     <td>${esc(n.ano)}${n.idade > 10 ? ` <span class="age-old" title="${n.idade} anos">●<span class="sr"> (${n.idade} anos)</span></span>` : ''}</td>
     <td>${esc(n.ementa)}</td>
     <td>${n.temas.map(t => `<span class="tag t">${esc(t)}</span>`).join('')}${n.eixos.map(e => `<span class="tag">${esc(e)}</span>`).join('')}</td>
     <td><a href="${esc(n.link)}" target="_blank" rel="noopener">SEI<span class="sr"> (abre em nova aba)</span></a></td></tr>`).join('')
-    : '<tr><td colspan="8" class="empty">Nenhum ato encontrado com esses filtros. Experimente apagar a busca ou clicar em “Limpar tudo”.</td></tr>';
-  $('tb').querySelectorAll('.star').forEach(b => b.onclick = () => { const id = b.dataset.id;
-    favs.has(id) ? favs.delete(id) : favs.add(id); salvaFavs(); render(); });
+    : '<tr><td colspan="7" class="empty">Nenhum ato encontrado com esses filtros. Experimente apagar a busca ou clicar em “Limpar tudo”.</td></tr>';
   $('pginfo').textContent = `Página ${S.pg + 1} de ${pages}`;
   $('prev').disabled = S.pg === 0; $('next').disabled = S.pg >= pages - 1;
   document.querySelectorAll('th[data-k]').forEach(t => t.setAttribute('aria-sort', t.dataset.k === S.sort ? (S.desc ? 'descending' : 'ascending') : 'none'));
@@ -6407,30 +6394,30 @@ function chipsHtml(ch, vazio) {
 function saveHash() {
   const p = new URLSearchParams();
   [['q', S.q], ['eixo', S.eixo], ['tema', S.tema], ['tipo', S.tipo], ['uni', S.uni], ['de', S.de ?? ''], ['ate', S.ate ?? ''],
-   ['star', S.star ? 1 : ''], ['old', S.old ? 1 : ''], ['todos', [S.q, S.eixo, S.tema, S.tipo, S.uni, S.de ?? '', S.ate ?? '', S.star || '', S.old || ''].every(x => x === '') ? 1 : ''], ['v', VIEW === 'normas' ? '' : VIEW], ['d', VIEW === 'ind' && IND === 's' ? 's' : '']].forEach(([k, v]) => v !== '' && p.set(k, v));
+   ['old', S.old ? 1 : ''], ['todos', [S.q, S.eixo, S.tema, S.tipo, S.uni, S.de ?? '', S.ate ?? '', S.old || ''].every(x => x === '') ? 1 : ''], ['v', VIEW === 'normas' ? '' : VIEW], ['d', VIEW === 'ind' && IND === 's' ? 's' : '']].forEach(([k, v]) => v !== '' && p.set(k, v));
   try { history.replaceState(null, '', p.toString() ? '#' + p : location.pathname + location.search); } catch (e) {}
 }
 function loadHash() {
   const p = new URLSearchParams(location.hash.slice(1));
   S.q = p.get('q') || ''; S.eixo = p.get('eixo') || ''; S.tema = p.get('tema') || ''; S.tipo = p.get('tipo') || ''; S.uni = p.get('uni') || '';
-  S.de = p.get('de') ? +p.get('de') : null; S.ate = p.get('ate') ? +p.get('ate') : null; S.star = !!p.get('star'); S.old = !!p.get('old');
+  S.de = p.get('de') ? +p.get('de') : null; S.ate = p.get('ate') ? +p.get('ate') : null; S.old = !!p.get('old');
   VIEW = ['sei', 'ind'].includes(p.get('v')) ? p.get('v') : 'normas'; IND = p.get('d') === 's' || VIEW === 'sei' ? 's' : 'n';
   if (![...p.keys()].some(k => k !== 'v' && k !== 'd')) S.eixo = 'Pesquisa e Inovação';   // visão inicial: pesquisa
 }
 function sync() {
   $('q').value = S.q; $('fEixo').value = S.eixo; $('fTema').value = S.tema; $('fTipo').value = S.tipo; $('fUni').value = S.uni;
-  $('aDe').value = S.de ?? ''; $('aAte').value = S.ate ?? ''; $('fStar').checked = S.star; $('fOld').checked = S.old;
+  $('aDe').value = S.de ?? ''; $('aAte').value = S.ate ?? ''; $('fOld').checked = S.old;
 }
 const bind = (id, f, ev = 'input') => $(id).addEventListener(ev, e => { f(e.target); S.pg = 0; render(); });
 bind('q', e => S.q = e.value); bind('fEixo', e => S.eixo = e.value, 'change'); bind('fTema', e => S.tema = e.value, 'change');
 bind('fTipo', e => S.tipo = e.value, 'change'); bind('fUni', e => S.uni = e.value, 'change');
 bind('aDe', e => S.de = e.value ? +e.value : null); bind('aAte', e => S.ate = e.value ? +e.value : null);
-bind('fStar', e => S.star = e.checked, 'change'); bind('fOld', e => S.old = e.checked, 'change');
+bind('fOld', e => S.old = e.checked, 'change');
 $('qLimpa').onclick = () => { S.q = ''; S.pg = 0; sync(); render(); $('q').focus(); };
 $('limpar').onclick = () => { Object.assign(S, BASE_N(), { pg: 0 }); sync(); render(); $('q').focus(); };
 $('prev').onclick = () => { S.pg--; render(); }; $('next').onclick = () => { S.pg++; render(); };
 document.querySelectorAll('th[data-k]').forEach(t => t.onclick = () => {
-  const k = t.dataset.k; if (S.sort === k) S.desc = !S.desc; else { S.sort = k; S.desc = (k === 'ano' || k === 'star'); } render(); });
+  const k = t.dataset.k; if (S.sort === k) S.desc = !S.desc; else { S.sort = k; S.desc = k === 'ano'; } render(); });
 const baixaCsv = (linhas, nome) => {
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + linhas.join('\r\n')], { type: 'text/csv;charset=utf-8' }));
   a.download = nome; a.click(); URL.revokeObjectURL(a.href);
