@@ -1,10 +1,12 @@
 name: Atualizar dados (diário)
 
 on:
-  schedule:
-    - cron: '0 13 * * *'  # 13:00 UTC = 10:00 em Brasília
-    - cron: '0 19 * * *'  # 19:00 UTC = 16:00 em Brasília
-  workflow_dispatch:       # também pode ser disparado manualmente na aba Actions
+  # Atualização automática desativada em 22/10/2026 a pedido do usuário.
+  # Para reativar, volte com o bloco abaixo:
+  # schedule:
+  #   - cron: '0 13 * * *'  # 13:00 UTC = 10:00 em Brasília
+  #   - cron: '0 19 * * *'  # 19:00 UTC = 16:00 em Brasília
+  workflow_dispatch:       # dispara manualmente na aba Actions (Run workflow)
 
 permissions:
   contents: write
