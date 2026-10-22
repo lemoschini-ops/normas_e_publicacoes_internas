@@ -238,6 +238,21 @@ mark{background:var(--hl);color:#000;border-radius:3px;padding:0 1px}
 .pg{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:center;margin-top:.9rem;color:var(--heading)}
 .empty{padding:1.5rem;text-align:center;color:var(--muted)}
 
+.docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));gap:1.1rem}
+.doc-card{background:var(--surface);border:1px solid var(--border);border-top:5px solid var(--blue);border-radius:var(--radius);padding:1.1rem 1.2rem;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.6rem}
+.doc-card:nth-child(3n+2){border-top-color:var(--yellow)}.doc-card:nth-child(3n+3){border-top-color:var(--blue-2)}
+.doc-card h3{margin:0;font-size:1.05rem;color:var(--heading)}
+.doc-card .org{font-size:.82rem;color:var(--muted);font-weight:600}
+.doc-card p{margin:0;font-size:.88rem}
+.doc-card ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.doc-card li a{display:flex;gap:.5rem;align-items:baseline;justify-content:space-between;text-decoration:none;font-weight:600;padding:.45rem .6rem;border-radius:8px;background:var(--surface-2);border:1px solid var(--border)}
+.doc-card li a:hover{border-color:var(--accent);background:var(--accent-soft)}
+.doc-card li a span{text-decoration:underline;text-underline-offset:2px}
+.doc-card li a small{flex:none;font-size:.72rem;font-weight:700;padding:.05rem .5rem;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.doc-card li a small.vig{background:#d9f2e4;color:#14633b}
+:root[data-theme="dark"] .doc-card li a small.vig{background:#14402c;color:#9be0bd}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .doc-card li a small.vig{background:#14402c;color:#9be0bd}}
+.doc-card .pag{margin-top:auto;font-size:.85rem}
 footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;background:var(--surface);border-top:1px solid var(--border);margin-top:2rem}
 @media print{.topo,.filtros .corpo-f,.filtros .busca,.adv,.pg,.res-topo .acoes,.ind-topo,.skip{display:none!important}
   body{background:#fff;color:#000}.card,.kpi{box-shadow:none;break-inside:avoid}.hero{color:#000;background:none;border:1px solid #ccc}.hero a{color:#000}
@@ -265,6 +280,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
       <button id="tabBtnNormas" class="nav-btn" role="tab" aria-controls="tabNormas" aria-selected="true">Atos normativos <span class="badge" id="badgeN"></span></button>
       <button id="tabBtnSei" class="nav-btn" role="tab" aria-controls="tabSei" aria-selected="false" tabindex="-1">Boletim Interno do SEI <span class="badge" id="badgeS"></span></button>
       <button id="tabBtnInd" class="nav-btn" role="tab" aria-controls="tabInd" aria-selected="false" tabindex="-1">Indicadores e gráficos</button>
+      <button id="tabBtnDocs" class="nav-btn" role="tab" aria-controls="tabDocs" aria-selected="false" tabindex="-1">Documentações Institucionais</button>
     </div>
   </nav>
 </header>
@@ -483,6 +499,24 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
       <div class="tablewrap" style="max-height:none"><table class="heat" id="sHeat"></table></div>
     </section>
   </div>
+</section>
+
+<!-- ===== Aba 4: Documentações Institucionais ===== -->
+<section id="tabDocs" class="painel" role="tabpanel" aria-labelledby="tabBtnDocs" hidden>
+  <section class="card filtros" aria-labelledby="dBusca-t">
+    <h2 id="dBusca-t" style="margin:0 0 .4rem">Estatuto, regimentos e regimentos internos dos conselhos</h2>
+    <div class="busca">
+      <label for="dQ">Procurar um documento</label>
+      <div class="caixa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="dQ" type="search" placeholder="Ex.: estatuto, regimento geral, CoPq, CoGePe…">
+        <button type="button" class="limpa" id="dQLimpa" aria-label="Apagar a busca" hidden>✕</button>
+      </div>
+      <p class="dica">Os links abrem os documentos oficiais nas páginas da UFSCar (em nova aba). Confira sempre a versão vigente na página do órgão.</p>
+    </div>
+    <p class="resultado" id="resD" role="status"></p>
+  </section>
+  <div class="docs-grid" id="docsGrid"></div>
 </section>
 </main>
 <footer>
@@ -6456,7 +6490,7 @@ function loadHash() {
   const p = new URLSearchParams(location.hash.slice(1));
   S.q = p.get('q') || ''; S.eixo = p.get('eixo') || ''; S.tema = p.get('tema') || ''; S.tipo = p.get('tipo') || ''; S.uni = p.get('uni') || '';
   S.de = p.get('de') ? +p.get('de') : null; S.ate = p.get('ate') ? +p.get('ate') : null; S.old = !!p.get('old');
-  VIEW = ['sei', 'ind'].includes(p.get('v')) ? p.get('v') : 'normas'; IND = p.get('d') === 's' || VIEW === 'sei' ? 's' : 'n';
+  VIEW = ['sei', 'ind', 'docs'].includes(p.get('v')) ? p.get('v') : 'normas'; IND = p.get('d') === 's' || VIEW === 'sei' ? 's' : 'n';
 }
 function sync() {
   $('q').value = S.q; $('fEixo').value = S.eixo; $('fTema').value = S.tema; $('fTipo').value = S.tipo; $('fUni').value = S.uni;
@@ -20707,9 +20741,72 @@ document.querySelectorAll('th[data-s]').forEach(t => t.onclick = () => {
 $('sCsv').onclick = () => baixaCsv(['Data;Protocolo;Ato;Unidade;Sigla;Resumo;Unidades de pesquisa;Palavras da coleta;Link'].concat(sFilt().map(p =>
   [p.data, p.protocolo, p.descricao, p.unidade, p.sigla, p.resumo, p.uniPq.join(', '), p.termos.join(', '), p.link].map(qcsv).join(';'))), 'publicacoes-sei-ufscar.csv');
 
+/* ===== Documentações Institucionais (links para as páginas oficiais) ===== */
+const DOCS = [
+  { titulo: 'Estatuto e Regimento Geral da UFSCar', org: 'Secretaria dos Órgãos Colegiados (SOC)',
+    desc: 'Estatutos da Fundação e da Universidade e Regimento Geral da UFSCar, inclusive as versões em inglês.',
+    pagina: 'https://www.soc.ufscar.br/a-secretaria/regimentos', docs: [
+      ['Estatuto da Universidade Federal de São Carlos', 'https://www.soc.ufscar.br/arquivos/regimentos/estatutoufscar_alterado.pdf', 'PDF'],
+      ['Regimento Geral da Universidade Federal de São Carlos', 'https://www.soc.ufscar.br/arquivos/regimentos/regimentofinal_ufscar.pdf', 'PDF'],
+      ['Estatuto da Fundação Universidade Federal de São Carlos', 'https://www.soc.ufscar.br/arquivos/regimentos/estatuto_fufscar.pdf', 'PDF'],
+      ['Estatuto da UFSCar (inglês)', 'https://www.soc.ufscar.br/arquivos/regimentos/estatuto-ufscar-ingles.pdf', 'PDF'],
+      ['Regimento Geral da UFSCar (inglês)', 'https://www.soc.ufscar.br/arquivos/regimentos/rg-ufscar-ingles.pdf', 'PDF']] },
+  { titulo: 'Regimento Geral da Pós-Graduação', org: 'Pró-Reitoria de Pós-Graduação (ProPG) · Conselho de Pós-Graduação (CoPG)',
+    desc: 'Regras gerais dos Programas de Pós-Graduação stricto sensu. A página oficial traz também as versões anteriores e as resoluções relacionadas.',
+    pagina: 'https://www.propg.ufscar.br/pt-br/pos-na-ufscar/regimento-geral', docs: [
+      ['Resolução ConsUni nº 45, de 1º de abril de 2021 (Regimento Geral vigente)', 'https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar&id_documento=2353642&id_orgao_publicacao=0', 'Vigente']] },
+  { titulo: 'Regimento Interno do Conselho de Pesquisa', org: 'Pró-Reitoria de Pesquisa (ProPq) · Conselho de Pesquisa (CoPq)',
+    desc: 'Regimento interno do CoPq.',
+    pagina: 'https://www.propq.ufscar.br/pt-br/a-propq/conselho-copq/regimento-interno-1', docs: [
+      ['Regimento do Conselho de Pesquisa', 'https://www.propq.ufscar.br/pt-br/assets/arquivos/a-propq/copq/regimento-interno-do-copq.pdf', 'PDF']] },
+  { titulo: 'Regimento Interno do Conselho de Graduação', org: 'Pró-Reitoria de Graduação (ProGrad) · Conselho de Graduação (CoG)',
+    desc: 'Regimento interno do CoG (versão 2022).',
+    pagina: 'https://www.prograd.ufscar.br/pt-br/conselho-de-graduacao/regimento-do-conselho', docs: [
+      ['Regimento Interno do Conselho de Graduação (2022)', 'https://www.prograd.ufscar.br/pt-br/assets/arquivos/conselho-de-graduacao/regimento-do-conselho/RegimentoInternoCoG2022.pdf', 'PDF']] },
+  { titulo: 'Regimento Interno do Conselho de Assuntos Comunitários e Estudantis', org: 'Pró-Reitoria de Assuntos Comunitários e Estudantis (ProACE) · CoACE',
+    desc: 'Órgão deliberativo sobre programas de qualidade de vida e permanência estudantil, criado pela Resolução ConsUni nº 689/2011.',
+    pagina: 'https://www.proace.ufscar.br/institucional/coace', docs: [
+      ['Regimento Interno do CoACE (Resolução CoACE nº 47)', 'https://www.proace.ufscar.br/arquivos/normas/resolucoes/resolucao-47-coace-regimento-interno-coace.pdf', 'PDF'],
+      ['Resolução ConsUni nº 689, de 11/04/2011 (criação do CoACE)', 'https://sei.ufscar.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?R29RRw7JFgWgzbsZUdVJoMvGfN9_v70TlHOfRFncT_27IwK6uqIJGl25lkutSS916zHzMFJJWr1z7t0KPsiEmiFUrJHjihffbYE24nzF47aIvDyTTKJaIjPajU2eTptJ', 'SEI']] },
+  { titulo: 'Regimento Interno do Conselho de Gestão de Pessoas', org: 'Pró-Reitoria de Gestão de Pessoas (ProGPe) · Conselho de Gestão de Pessoas (CoGePe)',
+    desc: 'Regimento interno do CoGePe, com a versão vigente (retificada em 2023) e a anterior.',
+    pagina: 'https://www.progpe.ufscar.br/institucional/cogepe/regimento', docs: [
+      ['Regimento Interno do CoGePe (Resolução CoGePe nº 04/2023)', 'https://www.progpe.ufscar.br/institucional/cogepe/sei_23112-034719_2023_87.pdf', 'Vigente'],
+      ['Regimento anterior (Resolução CoGePe nº 01/2022)', 'https://www.progpe.ufscar.br/arquivos/legislacao/resolucao-cogepe-01-22.pdf', 'Anterior']] },
+];
+let DQ = '';
+function dRender() {
+  const q = fold(DQ).trim().split(/\s+/).filter(Boolean);
+  const ok = s => q.every(w => fold(s).includes(w));
+  const grupos = DOCS.map(g => {
+    const base = g.titulo + ' ' + g.org + ' ' + g.desc;
+    return { ...g, docs: ok(base) ? g.docs : g.docs.filter(d => ok(base + ' ' + d[0]) || ok(d[0])) };
+  }).filter(g => g.docs.length);
+  const n = grupos.reduce((s, g) => s + g.docs.length, 0);
+  $('resD').innerHTML = `<b>${fmt(n)}</b> ${n === 1 ? 'documento' : 'documentos'} em ${grupos.length} ${grupos.length === 1 ? 'órgão' : 'órgãos'}`;
+  $('docsGrid').innerHTML = grupos.length ? grupos.map(g => `<article class="doc-card">
+    <div><div class="org">${esc(g.org)}</div><h3>${esc(g.titulo)}</h3></div>
+    <p>${esc(g.desc)}</p>
+    <ul>${g.docs.map(([t, u, k]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener"><span>${esc(t)}</span><small class="${k === 'Vigente' ? 'vig' : ''}">${esc(k)}</small><b class="sr"> (abre em nova aba)</b></a></li>`).join('')}</ul>
+    <a class="pag" href="${esc(g.pagina)}" target="_blank" rel="noopener">Página oficial do órgão ↗<span class="sr"> (abre em nova aba)</span></a></article>`).join('')
+    : '<div class="card empty">Nenhum documento encontrado. Experimente outra palavra.</div>';
+  $('dQLimpa').hidden = !DQ;
+}
+$('dQ').addEventListener('input', e => { DQ = e.target.value; dRender(); });
+$('dQLimpa').onclick = () => { DQ = ''; $('dQ').value = ''; dRender(); $('dQ').focus(); };
+dRender();
+
 /* ===== Navegação entre abas ===== */
-const ABAS = [['normas', 'tabBtnNormas', 'tabNormas'], ['sei', 'tabBtnSei', 'tabSei'], ['ind', 'tabBtnInd', 'tabInd']];
+const ABAS = [['normas', 'tabBtnNormas', 'tabNormas'], ['sei', 'tabBtnSei', 'tabSei'], ['ind', 'tabBtnInd', 'tabInd'], ['docs', 'tabBtnDocs', 'tabDocs']];
 function hero() {
+  $('badgeN').textContent = fmt(CNT.n); $('badgeS').textContent = fmt(CNT.s);
+  if (VIEW === 'docs') {
+    $('heroTag').textContent = 'UFSCar · Documentações Institucionais';
+    $('heroH1').textContent = 'Estatuto, Regimento Geral e regimentos dos conselhos';
+    $('fonte').innerHTML = 'Links para os documentos oficiais publicados pela SOC, ProPG, ProPq, ProGrad, ProACE e ProGPe.';
+    $('heroNum').textContent = fmt(DOCS.reduce((s, g) => s + g.docs.length, 0)); $('heroLbl').textContent = 'documentos institucionais';
+    return;
+  }
   const sei = VIEW === 'sei' || (VIEW === 'ind' && IND === 's'), ind = VIEW === 'ind';
   $('heroTag').textContent = ind ? 'Indicadores e gráficos' : sei ? 'SEI · Boletim Interno' : 'UFSCar · Consulta geral e por eixo temático';
   $('heroH1').textContent = sei ? (ind ? 'Indicadores — Boletim Interno do SEI' : 'Boletim Interno do SEI: pesquisa, pós-graduação e cargos')
