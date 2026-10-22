@@ -1,5 +1,5 @@
 ﻿{
-    "executadoEm":  "2026-10-22T12:03:30",
+    "executadoEm":  "2026-10-22T12:15:57",
     "fontes":  [
                    {
                        "arquivo":  "normas.json",
@@ -13,7 +13,7 @@
                        "antes":  978,
                        "depois":  978,
                        "status":  "revertido",
-                       "erro":  "Falha repetida na busca"
+                       "erro":  "Falha repetida na busca (todos os critérios)"
                    }
                ]
 }
