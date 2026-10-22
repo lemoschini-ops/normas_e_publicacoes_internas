@@ -6,11 +6,12 @@ Painel (página única, HTML) para consulta e acompanhamento de **atos normativo
 
 **Painel publicado:** <https://lemoschini-ops.github.io/normas_e_publicacoes_internas/>
 
-## Atualização automática
+## Atualização dos dados
 
-O workflow `.github/workflows/atualizar-dados.yml` roda duas vezes ao dia (10h00 e 16h00, horário de Brasília), recoleta as
-fontes, valida (se a coleta falhar ou vier mais de 20% menor, mantém os dados anteriores), regenera `normas.html` e faz commit
-só se algo mudou. Também pode ser disparado manualmente na aba Actions.
+A atualização automática (10h00 e 16h00) está **desativada** desde 22/10/2026. Para atualizar, abra a aba **Actions**, escolha
+"Atualizar dados (diário)" e clique em **Run workflow**. O workflow recoleta as fontes, valida (se a coleta falhar ou vier mais de
+20% menor, mantém os dados anteriores), regenera `normas.html` e faz commit só se algo mudou. Para reativar o agendamento,
+descomente o bloco `schedule` em `.github/workflows/atualizar-dados.yml`.
 
 ## Conteúdo
 
