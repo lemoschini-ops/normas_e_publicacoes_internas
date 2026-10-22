@@ -303,7 +303,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
   <section class="card filtros" id="filtrosN" aria-labelledby="fN-t">
     <div class="f-head">
       <h2 id="fN-t">Buscar e filtrar atos normativos</h2>
-      <button type="button" class="btn link" id="togN" aria-expanded="true" aria-controls="fN-corpo">Ocultar opções de filtro</button>
+      <button type="button" class="btn link" id="togN" aria-expanded="false" aria-controls="fN-corpo">Mostrar opções de filtro</button>
     </div>
     <div class="busca">
       <label for="q">O que você procura?</label>
@@ -314,7 +314,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
       </div>
       <p class="dica" id="qDica">Procura na unidade, tipo, número, ano e ementa. Com várias palavras, mostra os atos que têm todas elas.</p>
     </div>
-    <div id="fN-corpo" class="corpo-f">
+    <div id="fN-corpo" class="corpo-f" hidden>
       <div class="eixos-box">
         <div class="eixos-head"><span class="rot" id="eixosRot">Consulta por eixo temático</span>
           <a href="https://www.ufscar.br/atos-normativos-da-ufscar#consulta-por-eixo-tematico" target="_blank" rel="noopener">mesmos eixos da página oficial<span class="sr"> (abre em nova aba)</span> ↗</a></div>
@@ -372,7 +372,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
   <section class="card filtros" id="filtrosS" aria-labelledby="fS-t">
     <div class="f-head">
       <h2 id="fS-t">Buscar e filtrar no Boletim Interno SEI-UFSCar</h2>
-      <button type="button" class="btn link" id="togS" aria-expanded="true" aria-controls="fS-corpo">Ocultar opções de filtro</button>
+      <button type="button" class="btn link" id="togS" aria-expanded="false" aria-controls="fS-corpo">Mostrar opções de filtro</button>
     </div>
     <div class="busca">
       <label for="sQ">O que você procura?</label>
@@ -393,7 +393,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
         <button type="button" data-as="Nomeação — outros cargos administrativos">Outros cargos administrativos</button>
       </div>
     </div>
-    <div id="fS-corpo" class="corpo-f">
+    <div id="fS-corpo" class="corpo-f" hidden>
       <div class="atalhos" id="quickS" role="group" aria-label="Atalhos de seleção">
         <span class="rot" aria-hidden="true">Atalhos:</span>
         <button type="button" data-a="90">Últimos 90 dias</button><button type="button" data-a="ano">Ano corrente</button><button type="button" data-a="copq">Conselho de Pesquisa</button><button type="button" data-a="propq">Pró-Reitoria de Pesquisa</button>
@@ -20846,7 +20846,7 @@ $('indBtnN').onclick = () => { IND = 'n'; aba('ind'); };
 $('indBtnS').onclick = () => { IND = 's'; aba('ind'); };
 const verInd = d => { IND = d; aba('ind'); scrollTo({ top: 0 }); $('tabBtnInd').focus(); };
 $('verIndN').onclick = () => verInd('n'); $('verIndS').onclick = () => verInd('s');
-/* mostrar/ocultar as opções de filtro (a busca e os filtros aplicados ficam sempre visíveis) */
+/* mostrar/ocultar as opções de filtro (começam ocultas; a busca e os filtros aplicados ficam sempre visíveis) */
 [['togN', 'fN-corpo'], ['togS', 'fS-corpo']].forEach(([b, c]) => $(b).onclick = () => {
   const abre = $(c).hidden; $(c).hidden = !abre; $(b).setAttribute('aria-expanded', abre);
   $(b).textContent = abre ? 'Ocultar opções de filtro' : 'Mostrar opções de filtro';
