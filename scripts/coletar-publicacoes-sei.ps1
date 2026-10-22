@@ -1,4 +1,4 @@
-﻿# Coleta publicações do SEI-UFSCar (Publicações Eletrônicas) relacionadas a pesquisa e inovação
+﻿# Coleta publicações do SEI-UFSCar (Publicações Eletrônicas) relacionadas a pesquisa e inovação, cargos e pós-graduação
 # e grava data/publicacoes_sei.json. Busca pública, sem login.
 # Estratégia: (1) todas as publicações de unidades de pesquisa; (2) buscas por palavras no resumo.
 # Uso: powershell -File scripts/coletar-publicacoes-sei.ps1
@@ -15,7 +15,10 @@ $unidades = [ordered]@{
 }
 $termos = 'pesquisa','pesquisador','pesquisadores','inovação','iniciação científica','bolsa','bolsas','propriedade intelectual',
           'propriedade industrial','ética','biossegurança','pós-doutorado','pós-doutor','fomento','CEUA','animais','patrimônio genético',
-          'SisGen','EMBRAPII','tecnológica','transferência de tecnologia','pesquisa clínica','seres humanos','integridade'
+          'SisGen','EMBRAPII','tecnológica','transferência de tecnologia','pesquisa clínica','seres humanos','integridade',
+          # cargos (nomeações e designações) e editais de pós-graduação, para a aba Boletim Interno
+          'coordenador','coordenadora','chefe','diretor','diretora','pró-reitor','secretário','secretária',
+          'pós-graduação','processo seletivo','edital'
 
 function EncL1($s) { ($latin1.GetBytes($s) | ForEach-Object { if (($_ -ge 48 -and $_ -le 57) -or ($_ -ge 65 -and $_ -le 90) -or ($_ -ge 97 -and $_ -le 122)) { [char]$_ } else { '%{0:X2}' -f $_ } }) -join '' }
 
@@ -25,12 +28,12 @@ function Busca($campos, $inicio) {
     rdoDataPublicacao = 'I'; txtDataInicio = ''; txtDataFim = ''; hdnInicio = "$inicio"; sbmPesquisar = 'Pesquisar' }
   foreach ($k in $campos.Keys) { $b[$k] = $campos[$k] }
   $corpo = ($b.GetEnumerator() | ForEach-Object { (EncL1 $_.Key) + '=' + (EncL1 $_.Value) }) -join '&'
-  for ($t = 1; $t -le 4; $t++) {
+  for ($t = 1; $t -le 6; $t++) {
     try {
       $r = Invoke-WebRequest -UseBasicParsing -Uri $url -Method Post -Body $corpo -ContentType 'application/x-www-form-urlencoded' -TimeoutSec 120
       $ms = New-Object IO.MemoryStream (,$r.RawContentStream.ToArray())
       return (New-Object IO.StreamReader($ms, $latin1)).ReadToEnd()
-    } catch { Start-Sleep -Seconds (3 * $t) }
+    } catch { Start-Sleep -Seconds (5 * $t) }
   }
   throw 'Falha repetida na busca'
 }
@@ -58,6 +61,22 @@ function Linhas($html) {
 }
 
 $mapa = @{}
+# coleta anterior: se uma busca falhar, as publicações já conhecidas daquele critério são mantidas
+$anteriores = @()
+if (Test-Path $saida) { try { $anteriores = @((Get-Content $saida -Raw -Encoding utf8 | ConvertFrom-Json).publicacoes) } catch {} }
+$falhas = @()
+function Inclui($l, $rotulo) {
+  if (-not $mapa.ContainsKey($l.protocolo)) { $l | Add-Member origem @() -Force; $mapa[$l.protocolo] = $l }
+  if ($mapa[$l.protocolo].origem -notcontains $rotulo) { $mapa[$l.protocolo].origem += $rotulo }
+}
+function Criterio($campos, $rotulo) {
+  try { Varre $campos $rotulo }
+  catch {
+    Write-Warning ("{0}: {1} (mantidas as publicações da coleta anterior)" -f $rotulo, $_.Exception.Message)
+    $script:falhas += $rotulo
+    foreach ($o in $anteriores) { if ($o.origem -contains $rotulo) { Inclui ($o | Select-Object * -ExcludeProperty origem) $rotulo } }
+  }
+}
 function Varre($campos, $rotulo) {
   $ini = 0; $total = $null
   do {
@@ -70,22 +89,21 @@ function Varre($campos, $rotulo) {
       Write-Host ("{0}: {1}" -f $rotulo, $total)
     }
     $ls = @(Linhas $h)
-    foreach ($l in $ls) {
-      if (-not $mapa.ContainsKey($l.protocolo)) { $l | Add-Member origem @() ; $mapa[$l.protocolo] = $l }
-      if ($mapa[$l.protocolo].origem -notcontains $rotulo) { $mapa[$l.protocolo].origem += $rotulo }
-    }
+    foreach ($l in $ls) { Inclui $l $rotulo }
     $ini += 20
     if ($ls.Count -eq 0) { break }
     Start-Sleep -Milliseconds 400
   } while ($ini -lt $total)
 }
 
-foreach ($id in $unidades.Keys) { Varre @{ selUnidadeResponsavel = $id } ("Unidade " + $unidades[$id]) }
-foreach ($t in $termos) { Varre @{ txtResumo = $t } ("Resumo: $t") }
+foreach ($id in $unidades.Keys) { Criterio @{ selUnidadeResponsavel = $id } ("Unidade " + $unidades[$id]) }
+foreach ($t in $termos) { Criterio @{ txtResumo = $t } ("Resumo: $t") }
+if ($falhas.Count -eq ($unidades.Count + $termos.Count)) { throw 'Falha repetida na busca (todos os critérios)' }
 
 $res = [pscustomobject]@{
   fonte = $url; coletadoEm = (Get-Date).ToString('yyyy-MM-dd')
   criterios = @($unidades.Values | ForEach-Object { "Unidade $_" }) + @($termos | ForEach-Object { "Resumo: $_" })
+  falhas = @($falhas)
   publicacoes = @($mapa.Values)
 }
 $res | ConvertTo-Json -Depth 5 | Set-Content -Path $saida -Encoding utf8
