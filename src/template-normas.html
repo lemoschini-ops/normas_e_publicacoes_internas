@@ -181,6 +181,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .seg{display:inline-flex;flex-wrap:wrap;background:var(--surface);border:2px solid var(--blue);border-radius:999px;padding:3px;gap:3px}
 .seg button{background:none;border:0;border-radius:999px;padding:.4rem 1.1rem;font-weight:700;color:var(--blue)}
 .seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+@media (max-width:480px){.seg{border-radius:14px}.seg button{border-radius:10px;padding:.4rem .8rem}}
 :root[data-theme="dark"] .seg{border-color:var(--accent)}:root[data-theme="dark"] .seg button{color:var(--accent)}
 :root[data-theme="dark"] .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-text)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg{border-color:var(--accent)}:root:not([data-theme="light"]) .seg button{color:var(--accent)}
@@ -278,9 +279,9 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
   <nav class="navbar" aria-label="Seções do painel">
     <div class="abas" role="tablist" aria-label="Seções do painel">
       <button id="tabBtnNormas" class="nav-btn" role="tab" aria-controls="tabNormas" aria-selected="true">Atos normativos <span class="badge" id="badgeN"></span></button>
-      <button id="tabBtnSei" class="nav-btn" role="tab" aria-controls="tabSei" aria-selected="false" tabindex="-1">Boletim Interno do SEI <span class="badge" id="badgeS"></span></button>
-      <button id="tabBtnInd" class="nav-btn" role="tab" aria-controls="tabInd" aria-selected="false" tabindex="-1">Indicadores e gráficos</button>
       <button id="tabBtnDocs" class="nav-btn" role="tab" aria-controls="tabDocs" aria-selected="false" tabindex="-1">Documentações Institucionais</button>
+      <button id="tabBtnSei" class="nav-btn" role="tab" aria-controls="tabSei" aria-selected="false" tabindex="-1">Boletim Interno SEI-UFSCar <span class="badge" id="badgeS"></span></button>
+      <button id="tabBtnInd" class="nav-btn" role="tab" aria-controls="tabInd" aria-selected="false" tabindex="-1">Indicadores e gráficos</button>
     </div>
   </nav>
 </header>
@@ -365,12 +366,12 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
   </section>
 </section>
 
-<!-- ===== Aba 2: Boletim Interno do SEI ===== -->
+<!-- ===== Aba 3: Boletim Interno SEI-UFSCar ===== -->
 <section id="tabSei" class="painel" role="tabpanel" aria-labelledby="tabBtnSei" hidden>
   <div id="slotS">
   <section class="card filtros" id="filtrosS" aria-labelledby="fS-t">
     <div class="f-head">
-      <h2 id="fS-t">Buscar e filtrar no Boletim Interno do SEI</h2>
+      <h2 id="fS-t">Buscar e filtrar no Boletim Interno SEI-UFSCar</h2>
       <button type="button" class="btn link" id="togS" aria-expanded="true" aria-controls="fS-corpo">Ocultar opções de filtro</button>
     </div>
     <div class="busca">
@@ -457,7 +458,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
     <span class="rot" id="indRot">Mostrar indicadores de:</span>
     <div class="seg" role="group" aria-labelledby="indRot">
       <button type="button" id="indBtnN" aria-pressed="true">Atos normativos</button>
-      <button type="button" id="indBtnS" aria-pressed="false">Boletim Interno do SEI</button>
+      <button type="button" id="indBtnS" aria-pressed="false">Boletim Interno SEI-UFSCar</button>
     </div>
     <span class="note" style="margin:0">Os números e gráficos seguem os filtros abaixo, os mesmos da lista. Clique numa barra para filtrar por ela.</span>
   </div>
@@ -522,7 +523,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;b
 <footer>
   Fonte: página oficial dos Atos Normativos da UFSCar (consulta geral e eixos temáticos). Os temas de pesquisa são
   uma classificação automática por palavras da ementa — confira o ato no SEI antes de citar. O tamanho do texto fica salvo só neste navegador.
-  Aba Boletim Interno do SEI: publicações eletrônicas (Boletim de Serviço) coletadas por unidades de pesquisa e por palavras no resumo (pesquisa, cargos, pós-graduação e editais); não é o universo completo de publicações da UFSCar. Nomeações e editais são identificados automaticamente pelo texto do resumo.
+  Aba Boletim Interno SEI-UFSCar: publicações eletrônicas (Boletim de Serviço) coletadas por unidades de pesquisa e por palavras no resumo (pesquisa, cargos, pós-graduação e editais); não é o universo completo de publicações da UFSCar. Nomeações e editais são identificados automaticamente pelo texto do resumo.
 </footer>
 
 <script>
@@ -753,7 +754,7 @@ $('linkN').onclick = async () => {
 };
 window.addEventListener('hashchange', () => { loadHash(); sync(); aba(VIEW); });
 
-/* ===== Boletim Interno do SEI ===== */
+/* ===== Boletim Interno SEI-UFSCar ===== */
 const SEI = /*SEI*/{};
 const pubs = SEI.publicacoes || [];
 const FONTE_S = 'Boletim de Serviço Eletrônico, coletado em ' + (SEI.coletadoEm || '—') + ' de sei.ufscar.br (busca pública de Publicações Eletrônicas).';
@@ -1011,6 +1012,12 @@ const DOCS = [
     pagina: 'https://www.progpe.ufscar.br/institucional/cogepe/regimento', docs: [
       ['Regimento Interno do CoGePe (Resolução CoGePe nº 04/2023)', 'https://www.progpe.ufscar.br/institucional/cogepe/sei_23112-034719_2023_87.pdf', 'Vigente'],
       ['Regimento anterior (Resolução CoGePe nº 01/2022)', 'https://www.progpe.ufscar.br/arquivos/legislacao/resolucao-cogepe-01-22.pdf', 'Anterior']] },
+  { titulo: 'Regimento Interno do Conselho de Extensão', org: 'Pró-Reitoria de Extensão (ProEx) · Conselho de Extensão (CoEx)',
+    desc: 'Órgão deliberativo superior da extensão universitária, com o regimento do CoEx, o da sua Câmara de Atividades de Extensão (CAEx) e o Regimento Geral da Extensão.',
+    pagina: 'https://www.proex.ufscar.br/conselho', docs: [
+      ['Regimento Interno do CoEx (Resolução CoEx nº 02-A/2012)', 'https://sei.ufscar.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?R29RRw7JFgWgzbsZUdVJoMvGfN9_v70TlHOfRFncT_1if2iN4MfYYZ5VhX8I8RDXCPfPLFRCJimymP3jr9GSS-URNXPZCXGEmkDYr3e_Og9v-oylqJ1N6c8-gEUev-XT', 'SEI'],
+      ['Regimento Interno da CAEx (Resolução CoEx nº 02-B/2012)', 'https://sei.ufscar.br/sei/modulos/pesquisa/md_pesq_documento_consulta_externa.php?R29RRw7JFgWgzbsZUdVJoMvGfN9_v70TlHOfRFncT_3NCHgUGJOGO17-9poGKTqEy9TbDyylOM1xhG9cseBWuMoZWw3gy03l7w3YDMk30dvtzpjFWkyZTk11NWmyvbeB', 'SEI'],
+      ['Regimento Geral da Extensão (Resolução CoEx nº 03/2016)', 'https://sei.ufscar.br/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_visualizar&id_documento=1880553&id_orgao_publicacao=0', 'SEI']] },
 ];
 let DQ = '';
 function dRender() {
@@ -1035,19 +1042,19 @@ $('dQLimpa').onclick = () => { DQ = ''; $('dQ').value = ''; dRender(); $('dQ').f
 dRender();
 
 /* ===== Navegação entre abas ===== */
-const ABAS = [['normas', 'tabBtnNormas', 'tabNormas'], ['sei', 'tabBtnSei', 'tabSei'], ['ind', 'tabBtnInd', 'tabInd'], ['docs', 'tabBtnDocs', 'tabDocs']];
+const ABAS = [['normas', 'tabBtnNormas', 'tabNormas'], ['docs', 'tabBtnDocs', 'tabDocs'], ['sei', 'tabBtnSei', 'tabSei'], ['ind', 'tabBtnInd', 'tabInd']];
 function hero() {
   $('badgeN').textContent = fmt(CNT.n); $('badgeS').textContent = fmt(CNT.s);
   if (VIEW === 'docs') {
     $('heroTag').textContent = 'UFSCar · Documentações Institucionais';
     $('heroH1').textContent = 'Estatuto, Regimento Geral e regimentos dos conselhos';
-    $('fonte').innerHTML = 'Links para os documentos oficiais publicados pela SOC, ProPG, ProPq, ProGrad, ProACE e ProGPe.';
+    $('fonte').innerHTML = 'Links para os documentos oficiais publicados pela SOC, ProPG, ProPq, ProGrad, ProACE, ProGPe e ProEx.';
     $('heroNum').textContent = fmt(DOCS.reduce((s, g) => s + g.docs.length, 0)); $('heroLbl').textContent = 'documentos institucionais';
     return;
   }
   const sei = VIEW === 'sei' || (VIEW === 'ind' && IND === 's'), ind = VIEW === 'ind';
   $('heroTag').textContent = ind ? 'Indicadores e gráficos' : sei ? 'SEI · Boletim Interno' : 'UFSCar · Consulta geral e por eixo temático';
-  $('heroH1').textContent = sei ? (ind ? 'Indicadores — Boletim Interno do SEI' : 'Boletim Interno do SEI: pesquisa, pós-graduação e cargos')
+  $('heroH1').textContent = sei ? (ind ? 'Indicadores — Boletim Interno SEI-UFSCar' : 'Boletim Interno SEI-UFSCar: pesquisa, pós-graduação e cargos')
     : (ind ? 'Indicadores — atos normativos vigentes' : 'Atos normativos vigentes da UFSCar');
   $('fonte').innerHTML = sei ? FONTE_S : FONTE_N;
   $('heroNum').textContent = fmt(sei ? CNT.s : CNT.n);

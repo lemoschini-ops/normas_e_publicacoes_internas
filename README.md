@@ -32,7 +32,7 @@ descomente o bloco `schedule` em `.github/workflows/atualizar-dados.yml`.
 ## Limites conhecidos
 
 - Os "temas de pesquisa" são classificados por palavras da ementa; confira o ato no SEI antes de citar.
-- A aba Boletim Interno do SEI não é o universo completo (~23 mil publicações): reúne as de unidades de pesquisa e as que têm no resumo
+- A aba Boletim Interno SEI-UFSCar não é o universo completo (~23 mil publicações): reúne as de unidades de pesquisa e as que têm no resumo
   palavras de pesquisa, de cargos (coordenador, chefe, diretor, pró-reitor, secretário) ou de pós-graduação e editais.
   Nomeações e editais de pós-graduação são identificados pelo texto do resumo; confira o ato antes de citar.
 - Se uma busca do SEI falhar, a coleta mantém as publicações daquele critério da coleta anterior e registra o critério em `falhas`.
